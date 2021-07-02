@@ -29,7 +29,7 @@ function Food(props) {
             <div className={header}>
                 <img src={`image/svg/foodIcon/${type}-active.svg`} alt="" className={styles.img}/>
                 <p className={styles.name}>Hamburger Cua</p>
-                <p className={styles.price}>190.000đ</p>
+                <p className={styles.price}>$2.06</p>
             </div>
             <div className={styles.footer}>
             <img src={'image/svg/add.svg'} alt="" className={styles.icon}/>

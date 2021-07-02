@@ -12,6 +12,14 @@
         position: relative;
         text-align: center;
         align-items: center;
+        border-top-left-radius: 22px;
+        border-top-right-radius: 22px;
+}
+@mixin ct {
+    left: 0;
+    right: 0;
+    margin-right: auto;
+    margin-left: auto;
 }
 .mainComponent {
     width: 175px;
@@ -58,13 +66,23 @@
     margin-bottom: 10px;
     position: absolute;
     top: 26px;
-    left: 47.5px;
+    @include ct;
+    // @include b;
+    @include mobile {
+        width: 64px;
+        height: 64px;
+    }
 }
 .add {
     color: black;
     margin-left: 26px;
     font-weight: bold;
-    font-size: 14px
+    font-size: 14px;
+    @include mobile {
+        font-size: 12px;
+        margin-left: 18px;
+    }
+    font-family: $font-2;
 }
 .icon {
     padding-left: 10px;
@@ -74,6 +92,10 @@
         transform: scale(1.2);
         transition: 0.3s
     }
+    @include mobile {
+        width: 19.2px;
+        height: 19.2px;
+    }
 }
 .name {
     color: map-get($colors, "white" );
@@ -82,12 +104,15 @@
     margin-bottom: 10px;
     display: block;
     // border: 1px solid black;
+    font-family: $font-1;
     width: 80%;
     position: absolute;
     top: 116px;
-    text-overflow:initial;
-    word-wrap:break-word;
-    overflow: visible;
+    @include ct;
+    @include mobile {
+        top: 93px;
+        font-size: 12px;
+    }
 }
 .price {
     color: map-get($colors, "black" );
@@ -96,6 +121,10 @@
     position: absolute;
     top: 160px;
     // font-weight: bold
+    @include ct;
+    @include mobile {
+        top: 128px;
+    }
 }
 .footer {
     width: 100%;
@@ -104,9 +133,13 @@
     flex-direction: row;
     align-items: center;
     transition: 0.3;
+    
     // &:hover {
     //     transition: 0.3s;
     //     background-color: #c0a83e;
     // }
+    @include mobile {
+        height: 32px;
+    }
     
 }

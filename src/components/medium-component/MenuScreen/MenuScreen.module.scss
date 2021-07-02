@@ -54,6 +54,7 @@
     flex-direction: column;
     justify-content: space-between;
     margin-left: 5px;
+
     @include mt {
         flex-direction: row;   
         margin-left: 27px;
@@ -127,7 +128,7 @@
     @include mobile {
         margin-left: 2%;
         margin-top: 10px;
-        width: 340px;
+        width: 326px;
         height: 84%;
         align-self: center;
     }
