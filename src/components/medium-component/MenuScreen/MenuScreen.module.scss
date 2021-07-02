@@ -126,9 +126,9 @@
         overflow-x: scroll;
     }
     @include mobile {
-        margin-left: 2%;
+        // margin-left: 1.5%;
         margin-top: 10px;
-        width: 326px;
+        width: 362px;
         height: 84%;
         align-self: center;
     }
