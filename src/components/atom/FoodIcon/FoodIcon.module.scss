@@ -45,24 +45,3 @@
         // transform: scale(0.8);
     }
 }
-.img2 {
-    @include square();
-    transition: 0.3s;
-    position: absolute;
-    top: 10px;
-    opacity: 1;
-    @include mobile {
-        // transform: scale(0.8);
-    }
-}
-.img3 {
-    @include square();
-    top: 10px;
-    transition: 0.3s;
-    position: absolute;
-    opacity: 0;
-    overflow: hidden;
-    @include mobile {
-        // transform: scale(0.8);
-    }
-}
