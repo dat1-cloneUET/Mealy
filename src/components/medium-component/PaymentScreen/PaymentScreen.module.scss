@@ -1,0 +1,192 @@
+@import '../../abc';
+
+.mainComponent {
+    width: 1342px;
+    height: 575px;
+    // border: 1px solid black;
+    z-index: 5;
+    margin-top: 150px;
+    margin-left: 66px;
+    justify-content: space-between;
+}
+
+
+.payment {
+    padding: 0px 21px;
+    width: 359px;
+    height: 100%;
+    border-radius: 0px 28px;
+    background-color: map-get($colors, "yellow2" );
+    flex-direction: column;
+}
+.payment_header {
+    font-family: $font-1;
+    font-size: 28px;
+    margin-top: 14px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid map-get($colors, "black3" );
+    color: white;
+    font-weight: 700;
+}
+
+.payment_paymentMethod {
+    font-family: $font-2;
+    font-size: 20px;
+    margin-bottom: 20px;
+    // border-bottom: 1px solid map-get($colors, "black3" );
+    margin-top: 12px;
+    color: white;
+}
+.payment_all {
+    flex-direction: column;
+}
+.payment_label {
+    font-family: $font-1;
+    font-size: 14px;
+    color: white;
+    margin-bottom: 10px;
+}
+.payment_input {
+    width: 343px;
+    height: 48px;
+    padding-left: 14px;
+    font-family: $font-1;
+    font-size: 14px;
+    color: #ABBBC2;
+    background-color: map-get($colors, "black2");
+    border-radius: 8px;
+    &::placeholder{
+        color: #ABBBC2;
+    }
+    margin-bottom: 16px;
+}
+.button_cancel {
+    width: 175px;
+    height: 48px;
+    border-radius: 8px;
+    border: 2px solid map-get($colors, "blue" );
+    background-color: transparent;
+    font-family: $font-1;
+    color: map-get($colors, "blue" );
+    font-size: 14px;
+    transition: 0.3s;
+    &:hover {
+        border: 2px solid map-get($colors, "red" );
+        color: map-get($colors, "red" );
+    }
+}
+.button_confirm {
+    @extend .button_cancel;
+    background-color: map-get($colors, "blue" );
+    color: white;
+    &:hover {
+        border: 2px solid map-get($colors, "blue" );
+        color: white;
+        background-color: #114c83;
+    }
+}
+.button {
+    padding-top: 18px;
+    border-top: 2px solid map-get($colors, "black3" );
+    width: 358px;
+    justify-content: space-between;
+}
+.payment_listMethod {
+    width: 331px;
+    justify-content: space-between;
+}
+
+.information_headerdiv {
+    flex-direction: column;
+    position: absolute;
+    top: 220px;
+    left: 16px;
+}
+//information
+
+.information {
+    width: 774px;
+    height: 100%;
+    border-radius: 0px 28px;
+    background-color: map-get($colors, "black3" );
+
+}
+
+.information_listFood {
+    width: 515px;
+    height: 94%;
+    border-right: 2px solid #393C49;
+    // align-items: center;
+    flex-direction: column;
+   
+}
+.information_total {
+    width: 259px;
+    height: 100%;
+    // border-right: 2px solid #393C49;
+    position: relative;
+}
+.information_footerdiv {
+    position: absolute;
+    bottom: 20px;
+    left: 16px;
+    width: 222px;
+    height: 80px;
+    padding-top: 24px;
+    border-top: 2px solid #393C49;
+    flex-direction: column;
+}
+.information_footerdiv_out {
+    margin-bottom: 16px;
+        justify-content: space-between;
+}
+.information_footerdiv_out_name {
+    color: #ABBBC2;
+    font-family: $font-1;
+    font-size: 14px;
+}
+.information_footerdiv_out_value {
+    color: map-get($colors, "white" );
+    font-family: $font-1;
+    font-size: 14px;
+}
+.head {
+    width: 96%;
+    height: 100px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #393C49;
+    flex-direction: column;
+    margin-left: 12px;
+    margin-top: 10px;
+}
+.back {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+.confirmation {
+    font-family: $font-1;
+    font-weight: 700;
+    color: map-get($colors, "white");
+    font-size: 28px;
+}
+.scroll {
+    width: 505px;
+    height: 94%;
+    flex-direction: column;
+    overflow-y: scroll;
+    margin: 15px 0px;
+    justify-content: unset;
+    margin-left: 12px;
+    &::-webkit-scrollbar{
+        width: 8px;
+    }
+    &::-webkit-scrollbar-thumb{
+        background: map-get($colors, "white3" );
+        border-radius: 8px;
+    }
+    &::-webkit-scrollbar-thumb:hover{
+        background: map-get($colors, "gray3" );
+        border-radius: 8px;
+    }
+}

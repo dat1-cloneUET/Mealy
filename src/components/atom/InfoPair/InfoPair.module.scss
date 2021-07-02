@@ -1,0 +1,26 @@
+@import '../../abc';
+
+.mainComponent {
+    width: 222px;
+    height: 41px;
+    font-family: $font-1;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+.key {
+    color: #ABBBC2;
+}
+
+.value {
+    max-width: 100px;
+    overflow: hidden;
+    color: map-get($colors, "white" );
+    // text-overflow: ellipsis;
+    // white-space: nowrap;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    
+    text-align:center;
+}

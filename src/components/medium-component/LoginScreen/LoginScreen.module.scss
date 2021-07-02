@@ -1,0 +1,94 @@
+@import '../../abc';
+
+.mainComponent {
+    z-index: 5;
+    width: 321px;
+    height: 370px;
+    // border: 1px solid black;
+    position: relative;
+    // right: 8%;
+    // top: 20%;
+    align-items: center;
+    flex-direction: column;
+}
+.input {
+    width: 278px;
+    height: 44px;
+    border-radius: 14px 28px;
+    padding: 0px 19.5px;
+    box-shadow: -4px 4px 18px rgba(0, 0, 0, 0.09);
+    // margin-bottom: 21px;
+    font-family: $font-2;
+    transition: 0.3s;
+    &::placeholder{
+        color: #636773;
+    }
+    border: 1.6px solid transparent;
+}
+.input_warn {
+    @extend .input;
+    border: 1.6px solid #ec0000;
+}
+.forgotpassword {
+    display: block;
+    // justify-self:flex-end;
+    align-self: flex-end;
+    font: {
+        size: 13px;
+        family: $font-2;
+    }
+    color: #636773;
+    cursor: pointer;
+    margin-bottom: 21px;
+}
+.descript {
+    transition: 0.3s;
+    margin-top: 20px;
+    font: {
+        size: 15px;
+        family: $font-2;
+    }
+    color: map-get($colors, 'white3' );
+}
+.signUp {
+    color: #636773;
+    cursor: pointer;
+}
+.visible {
+        border: 1px solid map-get($colors , "yellow" );
+    display: flex;
+    overflow: hidden;
+    transition: 0.6s;
+    height: 67px;
+
+}
+.notvisible {
+    @extend .visible;
+    height: 0px;
+    // width: 0px;
+}
+.span {
+    font-family: $font-1;
+    font-size: 10px;
+    height: 10px;
+    color: #ec0000;
+    margin-bottom: 12px;
+    line-height: 22px;
+    justify-self:left;
+    align-self: flex-start;
+}
+.footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    flex-direction: column;
+    // border: 1px solid black;
+    @include center();
+}
+.header {
+    position: absolute;
+    top: 0px;
+    flex-direction: column;
+    // border: 1px solid black;
+    // @include center();
+}

@@ -1,0 +1,43 @@
+@import '../../abc';
+
+.mainComponent {
+    width: 101px;
+    height: 60px;
+    border: 2px solid map-get($colors, "black2");
+    background-color: map-get($colors, "black2");
+    border-radius: 8px;
+    flex-direction: column;
+    @include center();
+    cursor: pointer;
+    position: relative;
+    transition: 0.6s;
+}
+.mainComponent_active {
+    @extend .mainComponent;
+    border: 2px solid rgb(165, 165, 165);
+    transition: 0.6s;
+}
+.img {
+    width: 24px;
+    height: 24px;
+}
+.img2 {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    right: 6px;
+    top: 6px;
+}
+
+.name_active {
+    font-family: $font-1;
+    color: map-get($colors, "white" );
+    font-size: 13px;
+    text-transform: capitalize;
+    transition: 0.6s
+}
+.name {
+    @extend .name_active;
+    color: #ABBBC2;
+
+}

@@ -1,0 +1,46 @@
+
+$small: 23px;
+$big: 46px;
+@import '../../abc';
+
+.main {
+    width: 170px;
+    height: 70px;
+    color: map-get($colors, "white" );
+    background-color: map-get($colors, "black2" );
+    @include center;
+    font: {
+        family: $font-1;
+        size:16px;
+    }
+    border-top: {
+        right-radius: $big;
+        left-radius: $small;
+    };
+    border-bottom: {
+        left-radius: $big;
+        right-radius: $small;
+    }
+    transition:1s;
+    cursor: pointer;
+    opacity: 1;
+    transition: 0.62;
+    &:active {
+        opacity: 0.3;
+        transition: 0.6s;
+    }
+    @include tablet {
+        width: 120px;
+        height: 50px;
+        font-size: 14px;
+    }
+    @include mobile {
+        width: 100px;
+        height: 40px;
+        font-size: 12px;
+    }
+}
+// .main:hover {
+//     background-color: map-get($colors, "black3" );
+//     transition: 0.6s;
+// }

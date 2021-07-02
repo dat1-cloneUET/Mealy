@@ -1,0 +1,68 @@
+@import '../../abc';
+
+@mixin square {
+    width: 30px;
+    height: 30px;
+}
+.mainComponent {
+    width: 55px;
+    height: 68px;
+    background-color: map-get($colors, "white3");
+    border-radius: 30px;
+    flex-direction: column;
+    @include center;
+    cursor: pointer;
+    position: relative;
+    // @include b;
+    @include tablet {
+        width: 48px;
+        height: 60px;
+    }
+    @include mobile {
+        width: 45px;
+        height: 57px;
+    }
+
+}
+.name {
+    margin-top: 33px;
+    font-family: $font-1;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    @include mobile {
+        transform: scale(0.8);
+    }
+    
+}
+.img {
+    top: 10px;
+    transition: 0.6s;
+    position: absolute;
+    @include square();
+    z-index: 2;
+    @include mobile {
+        transform: scale(0.8);
+    }
+}
+.img2 {
+    @include square();
+    transition: 0.3s;
+    position: absolute;
+    top: 10px;
+    opacity: 1;
+    @include mobile {
+        transform: scale(0.8);
+    }
+}
+.img3 {
+    @include square();
+    top: 10px;
+    transition: 0.3s;
+    position: absolute;
+    opacity: 0;
+    overflow: hidden;
+    @include mobile {
+        transform: scale(0.8);
+    }
+}

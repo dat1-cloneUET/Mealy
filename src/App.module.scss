@@ -1,0 +1,75 @@
+@import './components/abc';
+
+.App {
+  background-color: #ebe0b3;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  // @include b();
+  overflow: auto;
+}
+
+.mainComponent{
+  // @include b();
+ 
+  width: 98%;
+  height: 100%;
+  background-color: map-get($colors, "white" );
+  position: fixed;
+  left: 1%;
+  right: 1%;
+  top: 15px;
+  z-index: 2;
+  border-radius: 30px;
+  @include mt {
+    top: 8px; overflow: auto;
+    // background-color: #e2d49d;
+  }
+}
+.x {
+  height: 100%;
+  @include b;
+}
+.a {
+  width: 84px;
+  height: 84px;
+}
+.leftComponent {
+  width: 800px;
+  height: 600px;
+  margin-top: 150px;
+  margin-left: 66px;
+  z-index: 5;
+  overflow: hidden;
+  flex-direction: column;
+}
+.mainScreen {
+  margin-top: 0%;
+  transition: 0.8s ease-in;
+}
+.menuScreen {
+  margin-top: -75%;
+  transition: 0.8s ease-out;
+}
+.rightComponent {
+  z-index: 5;
+  overflow: hidden;
+  flex-direction: column;
+  background-color: transparent;
+  width: 50%;
+  height: 79%;
+  position: fixed;
+  top: 20%;
+  left: 49%;
+  // border: 1px solid black;
+}
+
+
+.loginScreen {
+  margin-top: -75%;
+  transition: 0.8s ease-in;
+}
+.styleLoginScreen {
+  margin-left: 320px;
+  margin-top: 40px;
+}

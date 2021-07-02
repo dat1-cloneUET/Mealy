@@ -1,0 +1,110 @@
+@import '../../abc';
+
+@mixin square {
+    width: 80px;
+    height: 80px;
+}
+@mixin header_color($color){
+        width: 100%;
+        height: 190px;
+        background-color: $color;
+        flex-direction: column;
+        position: relative;
+        text-align: center;
+        align-items: center;
+}
+.mainComponent {
+    width: 175px;
+    height: 230px;
+    border-radius: 22px;
+    // overflow: a
+    flex-direction: column;
+    font-family: $font-1;
+    // text-align: center;
+    float: left;
+    // @include center;
+    margin-right: 30px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    @include mobile {
+        transform: scale(0.85);  
+        margin-right: -10px;
+        margin-bottom: -10px;
+    }
+}
+.header_burger {
+    @include header_color(#94A4DF);
+}
+.header_chicken {
+    @include header_color(#DF9494);
+}
+.header_pizza {
+    @include header_color(#7CE88D);
+}
+.header_fries {
+    @include header_color(#DD94DF);
+}
+.header_noodle {
+    @include header_color(#DFC194);
+}
+.header_sandwitch {
+    @include header_color(#E1E28C);
+}
+.img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+    position: absolute;
+    top: 26px;
+    left: 47.5px;
+}
+.add {
+    color: black;
+    margin-left: 26px;
+    font-weight: bold;
+    font-size: 14px
+}
+.icon {
+    padding-left: 10px;
+    transition: 0.3s;
+    cursor: pointer;
+    &:hover {
+        transform: scale(1.2);
+        transition: 0.3s
+    }
+}
+.name {
+    color: map-get($colors, "white" );
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    margin-bottom: 10px;
+    display: block;
+    // border: 1px solid black;
+    width: 80%;
+    position: absolute;
+    top: 116px;
+    text-overflow:initial;
+    word-wrap:break-word;
+    overflow: visible;
+}
+.price {
+    color: map-get($colors, "black" );
+    font-size: 15px;
+    display: block;
+    position: absolute;
+    top: 160px;
+    // font-weight: bold
+}
+.footer {
+    width: 100%;
+    height: 40px;
+    background-color: #F6EFE6;
+    flex-direction: row;
+    align-items: center;
+    transition: 0.3;
+    // &:hover {
+    //     transition: 0.3s;
+    //     background-color: #c0a83e;
+    // }
+    
+}

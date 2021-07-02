@@ -1,0 +1,91 @@
+@import '../../abc';
+
+.mainContainer {
+    width: 485px;
+    height: 110px;
+    font-size: 14px;
+    color: map-get($colors, "white");
+    font-family: $font-1;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 8px 0px;
+    // border-bottom: 1px solid #393C49;
+}
+.footer {
+    width: 100%;
+    // border: 1px solid black;
+    height: 60px;
+    justify-content: space-between;
+}
+.header {
+    width: 100%;
+    // border: 1px solid black;
+    height: 65px;
+    justify-content: space-between;
+}
+.note {
+    width: 390px;
+    height: 20px;
+    background-color: map-get($colors, "gray2" );
+    padding: 14px;
+    border-radius: 8px;
+    color: #E0E6E9;
+    font-family: $font-1;
+    &::placeholder{
+        color: #889898;
+    }
+}
+.delete {
+    width: 47px;
+    height: 47px;
+    border-radius: 8px;
+    border: 1px solid map-get($colors, "red" );
+    background-color: transparent;
+    margin-left: 17px;
+    // margin-right: 0px;
+    transition: 0.2s;
+    // &:hover {
+    //     transform: scale(1.1);
+    // }
+
+}
+.img {
+    width: 48px;
+    height: 48px;
+}
+
+.box {
+    flex-direction: column;
+    justify-content: space-around;
+    height: 48px;
+    width: 370px;
+    margin-left: 10px;
+}
+
+.name {
+    width: 250px;    height: 18px;
+    font-family: $font-1;
+    color: map-get($colors, "white");
+    display: inline-block;
+
+}
+.price {
+     height: 18px;
+    font-family: $font-1;
+    color: #ABBBC2;
+    font-size: 12px;
+}
+
+.number {
+    width: 45px;
+    height: 45px;
+    border-radius: 8px;
+    border: 1px solid #393C49;
+    background-color: #2D303E;
+    margin-left: 17px;
+    text-align: center;
+    transition: 0.2s;
+    color: white;
+    // font-size: 15px;
+    font-family: $font-1;
+}

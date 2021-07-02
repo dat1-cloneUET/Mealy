@@ -1,0 +1,63 @@
+// @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap');
+//font
+$font-1: 'Open Sans';
+$font-2: 'Roboto';
+
+//Color
+$colors: (
+    "yellow": #FFC839,
+    "yellow2": #DDB85A,
+    "white": #FFFFFF,
+    "white2": #F6F6F6,
+    "white3": #F0F0F0,
+    "black": #000000,
+    "black2": #323232,
+    "black3": #1F1D2B,
+    "gray": #636773,
+    "gray2": #2D303E,
+    "gray3": #BDBDBD,
+    "blue": #27639A,
+    "red": #EA7C69,
+);
+@mixin b {
+    border: 1px solid black;
+}
+@mixin center {
+    justify-content: center;
+    align-items: center;
+}
+
+$mobile-width: 480px; 
+$tablet-width: 700px; 
+$desktop-width: 1024px;  
+
+@mixin mobile { @media (max-width: #{$mobile-width - 1px}) {     
+  @content;   
+ } 
+}  
+
+@mixin tablet { @media (min-width: #{$mobile-width}) and (max-width: #{$desktop-width - 1px}) {       
+   @content;   
+ } 
+}  
+@mixin mt { @media (max-width: #{$desktop-width - 1px}) {       
+  @content;   
+} 
+}  
+
+@mixin desktop {   @media (min-width: #{$desktop-width}) {     
+  @content;  
+ } 
+}
+@mixin smdesktop { @media (min-width: #{$desktop-width}) and (max-width: 1150px) {       
+  @content;   
+} 
+}  
+@mixin portrait { @media (orientation: portrait) {       
+  @content;   
+} 
+}  
+

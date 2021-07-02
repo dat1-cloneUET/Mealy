@@ -1,0 +1,133 @@
+@import '../../abc';
+
+.mainComponent {
+    z-index: 5;
+    overflow: auto;
+    background-color: transparent;
+    width: 96%;
+    height: 100%;
+    position: fixed;
+    top: 20%;
+    left: 4%;
+    @include mt {
+        left: 1%;
+        width: 98%;
+    }
+}
+.leftComponent {
+    width: 50%;
+    height: 78%;
+    border-radius: 30px;
+    // border: 1px solid black;
+    z-index: 5;
+    flex-direction: column;
+    position: relative;
+    @include mt {
+        width: 100%;
+        background-color: #f3ebcd;
+
+    }
+    @include portrait {
+        width: 100%;
+    }
+    @include tablet {
+        flex-direction: column;
+    }
+    // @include mobile {
+    //     width: 100%;
+    // }
+}
+.listIcon {
+    flex-direction: row;
+    align-items:flex-start;
+    // justify-content: flex-start;
+    // @include b;
+    height: 92%;
+    width: 100%;
+    @include mt {
+        flex-direction: column;
+    }
+
+}
+.list {
+    // width: 70%;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 5px;
+    @include mt {
+        flex-direction: row;   
+        margin-left: 27px;
+    }
+    @include tablet {
+        width: 80%;
+        justify-content:first baseline
+    }
+    @include mobile {
+        width: 85%;
+    }
+    // @include b;
+}
+.text {
+    font-family: $font-1;
+    color: map-get($colors, "gray3" );
+    font-size: 14px;
+    margin-bottom: 10px;
+    width: 140px;
+    @include mt {
+        margin: 10px 27px;  
+    }
+
+}
+.icon {
+    margin-bottom: 14px;
+}
+.bigIcon{
+    height: 90%;
+    width: 50%;
+    position: fixed;
+    left: 49%;
+    // @include b;
+    transition: 0.8s ease-in;
+    @include mt {
+      display: none;
+    }
+    @include portrait {
+        display: none;
+    }
+  }
+.listFood {
+    width: auto;
+    // @include b;
+    height: 92%;
+    // border: 1px solid black;
+    // margin-top: 34px;
+    margin-left: 25px;
+    // float:left;
+    display: block;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    &::-webkit-scrollbar{
+        width: 8px;
+        // margin-left: -10px;
+    }
+    &::-webkit-scrollbar-thumb{
+        background: map-get($colors, "white3" );
+        border-radius: 8px;
+    }
+    &::-webkit-scrollbar-thumb:hover{
+        background: map-get($colors, "gray3" );
+        border-radius: 8px;
+    }
+    @include tablet {
+        margin-left: 2%;
+        width: 96%;
+        height: 84%;
+        overflow-x: scroll;
+    }
+    @include mobile {
+        margin-left: 2%;
+        width: 340px;
+        height: 84%;
+        align-self: center;
+    }
+}
