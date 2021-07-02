@@ -27,9 +27,11 @@
     margin-bottom: 20px;
     overflow: hidden;
     @include mobile {
-        transform: scale(0.85);  
-        margin-right: -10px;
-        margin-bottom: -10px;
+        // transform: scale(0.85);  
+        width: 148.75px;
+        height: 195.5px;
+        margin-right: 10px;
+        margin-bottom: 10px;
     }
 }
 .header_burger {
