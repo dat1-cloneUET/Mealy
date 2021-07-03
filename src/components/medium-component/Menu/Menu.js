@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useState} from 'react'
 import styles from './Menu.module.scss';
 import CusButton from '../../atom/CusButton/CusButton';
 // import { Navigate } from '../../../Contexts';
@@ -8,8 +8,10 @@ import {
     useLocation,
     Link
   } from "react-router-dom";
+import SingleSection from '../../atom/SingleSection/SingleSection';
 function Menu(props) {
     let history = useHistory();
+    var [openCategory, setOpenCategory]= useState(true);
     return (
         <div className={styles.mainComponent}>
             <div onClick={()=> history.push("/")} style={{cursor: 'pointer'}}>
@@ -21,8 +23,24 @@ function Menu(props) {
             </div>
             
             <div className={styles.boxMenu}>
-                <img src={'/image/svg/category.svg'} alt=""/>
-                <p className={styles.text3}>Categorys</p>
+            <div className={styles.boxCategory}>
+                <div    className={styles.category} 
+                        onClick={() => setOpenCategory(!openCategory)} 
+                        >
+                    <img src={openCategory?'image/svg/x.svg':'/image/svg/category.svg'} alt=""/>
+                    <p className={styles.text3}>Categorys</p>
+                </div>
+                {
+                    
+                    <div className={styles.openCategory} style={openCategory?{height: 100}: {height: 0, boxShadow: 'none'}}>
+                        <SingleSection name="Home" img="/image/svg/home.svg"/>
+                        <SingleSection name="Login" img="/image/svg/login.svg"/>
+                        <SingleSection name="Logout" img="/image/svg/logout.svg"/>
+                    </div>
+                }
+            </div>
+
+                
             </div>
             <div className={styles.boxMenu2}>
                 <img src={'/image/svg/contact.svg'} alt=""/>

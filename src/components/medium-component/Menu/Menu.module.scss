@@ -29,9 +29,13 @@ $ph: 100 / 750;
     }
 }
 .img {
+    // &:hover {
+    //     // background-color: aqua;
+    //     // filter: brightness(1.3);
+    // }
     @include mobile {
-        width: 50%;
-        height: 100%;
+        width: 70px;
+        height: 70px;
         
     }
 }
@@ -113,4 +117,36 @@ $ph: 100 / 750;
     @include smdesktop {
         margin-left: 15%;
     }
+}
+
+.openCategory {
+    position: fixed;
+    top: 16%;
+    width: 120px;
+    // @include b; 
+    background-color: map-get($colors,  "white" );
+    box-shadow:         0.5px 0.5px 1px 1px #ccc;
+    // border-top: 1px solid black;
+    flex-direction: column;
+    transition: 0.3s;
+    overflow: hidden;
+    @include mobile {
+        width: 98%;     
+        // padding: 5%;    
+        left:0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;     
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+
+
+    }
+}
+.category {
+    // width: ;     
+}
+.boxCategory {
+    display: block;
+    height: 24px;   
 }

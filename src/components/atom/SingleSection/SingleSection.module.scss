@@ -1,0 +1,25 @@
+@import '../../abc';
+
+
+.mainComponent {
+    width: 98%;
+    // justify-content: space-between;
+    // border-radius: 5px;
+    // border-top: 1px solid map-get($colors, "gray2" );
+    // margin-bottom: 5px;
+    align-items: center;
+    padding: 1%;
+    &:hover {
+        background-color: map-get($colors, "white3" );
+    } 
+}
+.name {
+    font-family: $font-1;
+    width: 65%;
+    margin-left: 3%;
+}
+.img {
+    margin-left: 2%;
+    width: 20px;
+    height: 20px;
+}
