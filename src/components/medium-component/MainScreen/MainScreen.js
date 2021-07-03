@@ -3,19 +3,21 @@ import Food from '../../atom/Food/Food';
 import FoodIcon from '../../atom/FoodIcon/FoodIcon';
 import Recent from '../../atom/Recent/Recent';
 import styles from './MainScreen.module.scss';
-import { Navigate } from '../../../Contexts';
-import Poster from '../Poster/Poster';
-import CusButton from '../../atom/CusButton/CusButton';
-
+import { motion } from "framer-motion";
+import { useHistory } from "react-router-dom";
 function MainScreen(props) {
-    const { handleMenuScreen }= useContext(Navigate);
+
+    const history = useHistory();
     return (
-        <div className={styles.mainComponent}>
+        <motion.div 
+            initial= {{ opacity: 0.4, y: -100}}
+            animate= {{ opacity: 1, y: 0}}
+            className={styles.mainComponent}>
             <div className={styles.leftComponent}>
                 <p className={styles.header}>Mealy Food</p>
                 <p className={styles.afterHeader}>A Better Way to Organize Your Recipe</p>
                 {/* <p>dsd</p> */}
-                <div className={styles.button} onClick={()=> handleMenuScreen()}>
+                <div className={styles.button} onClick={() => history.push("/order")}>
                     <p className={styles.textbutton} >Order Now</p>
                     <img src={'/image/svg/arrowdown.svg'} alt="" className={styles.arrow}/>
                 </div>
@@ -33,7 +35,7 @@ function MainScreen(props) {
                 </div>
             </div>
         <img src="/image/svg/bigIcon.svg" alt="" className={styles.bigIcon}/>
-        </div>
+        </motion.div>
     )
 }
 

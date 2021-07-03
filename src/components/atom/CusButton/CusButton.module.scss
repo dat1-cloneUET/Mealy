@@ -21,13 +21,13 @@ $big: 46px;
         left-radius: $big;
         right-radius: $small;
     }
-    transition:1s;
     cursor: pointer;
     opacity: 1;
-    transition: 0.62;
+    // transition: 0.6s;
+    // transition-property: color;
     &:active {
         opacity: 0.3;
-        transition: 0.6s;
+        // transition: 0.6s;
     }
     @include tablet {
         width: 120px;

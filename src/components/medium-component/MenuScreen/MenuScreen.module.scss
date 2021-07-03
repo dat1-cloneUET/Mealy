@@ -9,9 +9,13 @@
     position: fixed;
     top: 20%;
     left: 4%;
+    // @include b;
     @include mt {
         left: 1%;
         width: 98%;
+    }
+    @include mobile {
+        top: 18%;
     }
 }
 .leftComponent {
@@ -33,9 +37,9 @@
     @include tablet {
         flex-direction: column;
     }
-    // @include mobile {
-    //     width: 100%;
-    // }
+    @include mobile {
+        height: 83%;
+    }
 }
 .listIcon {
     flex-direction: row;
@@ -57,14 +61,15 @@
 
     @include mt {
         flex-direction: row;   
-        margin-left: 27px;
+        align-self: center;
     }
     @include tablet {
         width: 80%;
+
         justify-content:first baseline
     }
     @include mobile {
-        width: 85%;
+        width: 90%;
     }
     // @include b;
 }

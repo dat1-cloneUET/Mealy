@@ -1,23 +1,57 @@
 @import '../../abc';
 
 .mainComponent {
-    width: 1342px;
-    height: 575px;
-    // border: 1px solid black;
     z-index: 5;
-    margin-top: 150px;
-    margin-left: 66px;
-    justify-content: space-between;
+    z-index: 5;
+    overflow: auto;
+    background-color: transparent;
+    width: 96%;
+    height: 100%;
+    position: fixed;
+    overflow: hidden;
+    top: 20%;
+    left: 4%;
+    // @include b;
+    @include mt {
+        left: 1%;
+        width: 98%;
+        flex-direction: column;
+    }
+    @include mobile {
+        top: 18%;
+
+    }
 }
 
 
 .payment {
-    padding: 0px 21px;
     width: 359px;
-    height: 100%;
+    height: 75%;
     border-radius: 0px 28px;
     background-color: map-get($colors, "yellow2" );
     flex-direction: column;
+    margin-left: 15.6%;
+    padding: 0 16px;
+    @include mt {
+        margin-left: 0;
+        align-self: center;
+        border-radius: 28px;
+    }
+    @include mobile {
+        padding: 0 2%;
+        width: 96%;
+        margin-left: 0;
+        // @include b;
+        border-radius: 28px;
+        height: 81%;
+    }
+}
+.payment_back {
+    display: none;
+    @include mt {
+        display: block;
+        padding-right: 5px;
+    }
 }
 .payment_header {
     font-family: $font-1;
@@ -27,6 +61,11 @@
     border-bottom: 2px solid map-get($colors, "black3" );
     color: white;
     font-weight: 700;
+    @include mobile {
+        font-size: 26px;
+        margin-top: 12px;
+        padding-bottom: 17px
+    }
 }
 
 .payment_paymentMethod {
@@ -36,6 +75,10 @@
     // border-bottom: 1px solid map-get($colors, "black3" );
     margin-top: 12px;
     color: white;
+    @include mobile {
+        margin-bottom: 15px;
+        margin-top: 10px;
+    }
 }
 .payment_all {
     flex-direction: column;
@@ -47,7 +90,7 @@
     margin-bottom: 10px;
 }
 .payment_input {
-    width: 343px;
+    width: 96%;
     height: 48px;
     padding-left: 14px;
     font-family: $font-1;
@@ -59,6 +102,10 @@
         color: #ABBBC2;
     }
     margin-bottom: 16px;
+    @include mobile {
+        height: 43.2px;
+        margin-bottom: 13.5px;
+    }
 }
 .button_cancel {
     width: 175px;
@@ -70,6 +117,10 @@
     color: map-get($colors, "blue" );
     font-size: 14px;
     transition: 0.3s;
+    @include mobile {
+        width: 160px;
+        height: 44px;
+    }
     &:hover {
         border: 2px solid map-get($colors, "red" );
         color: map-get($colors, "red" );
@@ -89,11 +140,20 @@
     padding-top: 18px;
     border-top: 2px solid map-get($colors, "black3" );
     width: 358px;
+    @include mobile {
+        width: 330px
+    }
     justify-content: space-between;
 }
 .payment_listMethod {
     width: 331px;
     justify-content: space-between;
+    margin-bottom: 5px;
+    // @include b;
+    @include mobile {
+        width: 305px;
+        
+    }
 }
 
 .information_headerdiv {
@@ -105,19 +165,28 @@
 //information
 
 .information {
-    width: 774px;
-    height: 100%;
+    transition: 0.3s;
+    width: 50%;
+    height: 75%;
     border-radius: 0px 28px;
     background-color: map-get($colors, "black3" );
-
+    margin-left: 2%;   
+    // @include mt {
+    //     display: none;
+    // } 
 }
 
+.information_manageButton {
+    width: 100%;
+    justify-content: space-between ;
+}
 .information_listFood {
     width: 515px;
     height: 94%;
     border-right: 2px solid #393C49;
     // align-items: center;
     flex-direction: column;
+
    
 }
 .information_total {
@@ -164,6 +233,13 @@
     height: 24px;
     cursor: pointer;
 }
+.next {
+    @extend .back;
+    display: none;
+    @include mt {
+        display: block;
+    }
+}
 .confirmation {
     font-family: $font-1;
     font-weight: 700;
@@ -188,5 +264,46 @@
     &::-webkit-scrollbar-thumb:hover{
         background: map-get($colors, "gray3" );
         border-radius: 8px;
+    }
+}
+// history 
+.history {
+    width: 359px;
+    height: 72%;
+    border-radius: 0px 28px;
+    background-color: map-get($colors, "yellow2" );
+    flex-direction: column;
+    margin-left: 15.6%;
+    overflow-y: scroll;
+    // padding: 1% 0;
+    &::-webkit-scrollbar{
+        width: 8px;
+    }
+    &::-webkit-scrollbar-thumb{
+        background: map-get($colors, "white3" );
+        border-radius: 8px;
+    }
+    &::-webkit-scrollbar-thumb:hover{
+        background: map-get($colors, "gray3" );
+        border-radius: 8px;
+    }
+    @include mt {
+        margin-left: 0;
+        align-self: center;
+        border-radius: 28px;
+    }
+    @include mobile {
+        width: 100%;
+        margin-left: 0;
+        // @include b;
+
+        height: 80%;
+    }
+}
+.historyBack {
+    @extend .back;
+    display: none;
+    @include mt{
+        display: block;
     }
 }

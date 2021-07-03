@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import PaymentMethodButton from '../../atom/PaymentMethodButton/PaymentMethodButton'
 import styles from './PaymentScreen.module.scss'
 import { motion } from 'framer-motion';
 import InfoPair from '../../atom/InfoPair/InfoPair';
 import Receipt from '../../atom/Receipt/Receipt';
+import { useHistory } from 'react-router';
 function PaymenScreen() {
     const [method, setMethod]= useState([true, false, false]);
     const handleChangeMethod = (val) => {
@@ -11,12 +12,43 @@ function PaymenScreen() {
         exp[val]= true;
         setMethod(exp);
     }
+    const history= useHistory();
+    const [switchScreen, setSwitchScreen]= useState(false);
+    const [info, setInfo]= useState(true);
+    const [his, setHis]= useState(true);
+    useEffect(() => {
+        window.addEventListener('resize', () => {
+            
+            const width= window.innerWidth;
+            // console.log(width);
+            if(width > 1024) {
+                setHis(true);
+                setInfo(true);
+            }
+            else {
+                setHis(true);
+                setInfo(false);
+            }
+        });
+    },[]);
+    useLayoutEffect(() => {
+            const width= window.innerWidth;
+            // console.log(width);
+            if(width > 1024) {
+                setHis(true);
+                setInfo(true);
+            }
+            else {
+                setHis(true);
+                setInfo(false);
+            }
+    },[]);
     return (
         <motion.div 
             initial= {{ opacity: 0.4, y: -30}}
             animate= {{ opacity: 1, y: 0}}
             className={styles.mainComponent}>
-            <div className={styles.information}>
+            <div className={styles.information} style={info?{display: "flex"}: {display: "none"}}>
                 
                 <div className={styles.information_listFood}>
                     <div className={styles.head}>
@@ -45,7 +77,11 @@ function PaymenScreen() {
 
 
             <div className={styles.payment}>
-                <p className={styles.payment_header}>Payment</p>
+            <div style={{alignSelf: 'center', flexDirection: "column"}}>
+            <div className={styles.payment_header} style={{justifyContent: 'space-between'}}>
+                <p >Payment</p>
+                <img src="/image/svg/back.svg" alt="" className={styles.payment_back}/>
+            </div>    
                 <div className={styles.payment_all}>
                     <p className={styles.payment_paymentMethod}>Payment method</p>
                     <div className={styles.payment_listMethod}>
@@ -63,6 +99,7 @@ function PaymenScreen() {
                 <div className={styles.button}>
                     <button className={styles.button_cancel}>Cancel</button>
                     <button className={styles.button_confirm}>Confirm Payment</button>
+                </div>
                 </div>
                 {/* <HistoryButton timestamp={1624458298865} active={true}/> */}
             </div>

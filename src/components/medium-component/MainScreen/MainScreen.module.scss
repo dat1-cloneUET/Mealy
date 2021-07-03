@@ -13,6 +13,9 @@
         left: 1%;
         width: 98%;
     }
+    @include mobile {
+        top: 18%;
+    }
 }
 .bigIcon{
     height: 90%;

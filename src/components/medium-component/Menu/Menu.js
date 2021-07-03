@@ -1,7 +1,7 @@
 import React, {useContext} from 'react'
 import styles from './Menu.module.scss';
 import CusButton from '../../atom/CusButton/CusButton';
-import { Navigate } from '../../../Contexts';
+// import { Navigate } from '../../../Contexts';
 import {
     BrowserRouter as Router,
     useHistory,
@@ -9,18 +9,10 @@ import {
     Link
   } from "react-router-dom";
 function Menu(props) {
-    const { handleMainScreen, handleLoginScreen }= useContext(Navigate);
     let history = useHistory();
-    let location = useLocation();
-    const handleGoToMainScreen = () => {
-        if(location.pathname === "/payment")
-            history.push("/");
-        else 
-            handleMainScreen();
-    }
     return (
         <div className={styles.mainComponent}>
-            <div onClick={()=> handleGoToMainScreen()} style={{cursor: 'pointer'}}>
+            <div onClick={()=> history.push("/")} style={{cursor: 'pointer'}}>
                 <img src={'/image/svg/knife.svg'} alt="" className={styles.img}/>
                 <div className={styles.projectName}>
                     <p className={styles.text1}>Mealy</p>
@@ -47,7 +39,7 @@ function Menu(props) {
                 <img src={'/image/svg/icecream.svg'} alt="" />
             </Link>
             <div className={styles.button}>
-                <CusButton data={'Account'} handleClick={handleLoginScreen}/>
+                <CusButton data={'Account'} handleClick={() => history.push("/login")}/>
             </div>
             
 

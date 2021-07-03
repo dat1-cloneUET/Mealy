@@ -1,20 +1,56 @@
-import React from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import styles from '../PaymentScreen/PaymentScreen.module.scss';
 import HistoryButton from '../../atom/HistoryButton/HistoryButton';
 import InfoPair from '../../atom/InfoPair/InfoPair';
 import Receipt from '../../atom/Receipt/Receipt';
 import { motion } from 'framer-motion';
+import { useHistory } from 'react-router-dom';
 function HistoryScreen() {
+    const history= useHistory()
+    const [switchScreen, setSwitchScreen]= useState(false);
+    const [info, setInfo]= useState(true);
+    const [his, setHis]= useState(true);
+    useEffect(() => {
+        window.addEventListener('resize', () => {
+            
+            const width= window.innerWidth;
+            // console.log(width);
+            if(width > 1024) {
+                setHis(true);
+                setInfo(true);
+            }
+            else {
+                setHis(true);
+                setInfo(false);
+            }
+        });
+    },[]);
+    useLayoutEffect(() => {
+        const width= window.innerWidth;
+        // console.log(width);
+        if(width > 1024) {
+            setHis(true);
+            setInfo(true);
+        }
+        else {
+            setHis(true);
+            setInfo(false);
+        }
+},[]);
     return (
         <motion.div 
             initial= {{ opacity: 0.4, y: -30}}
             animate= {{ opacity: 1, y: 0}}
             className={styles.mainComponent}>
-            <div className={styles.information}>
+            <div className={styles.information} style={info?{display: "flex"}: {display: "none"}}>
                 
                 <div className={styles.information_listFood}>
                     <div className={styles.head}>
-                        <img src="image/svg/back.svg" className={styles.back}/>
+                    <div className={styles.information_manageButton}>
+                        <img src="image/svg/back.svg" className={styles.back} onClick={() => setSwitchScreen(!switchScreen)}/>
+                        {/* <img src="image/svg/next.svg" className={styles.next} onClick={() => setSwitchScreen(!switchScreen)}/> */}
+                    </div>
+                        
                         <p className={styles.confirmation}>Confirmation</p>
                     </div>
                     <div className={styles.scroll}>
@@ -44,9 +80,26 @@ function HistoryScreen() {
                 </div>
             </div>
 
-
-            <div className={styles.payment}>
-                <div style={{height: 14}}></div>
+            {/* style={!switchScreen?{ display: "none"}: { display: "flex"}} */}
+            <div  className={styles.history} style={his?{display: "flex"}: {display: "none"}}>
+                <img src="image/svg/back.svg" className={styles.historyBack} onClick={() => setSwitchScreen(!switchScreen)} style={{marginLeft: 17, marginBottom: 10, marginTop: 10}}/>
+                <HistoryButton timestamp={1624458298865} active={false}/>
+                <HistoryButton timestamp={1624458298865} active={false}/>
+                <HistoryButton timestamp={1624458298865} active={true}/>
+                <HistoryButton timestamp={1624458298865} active={false}/>
+                <HistoryButton timestamp={1624458298865} active={false}/>
+                <HistoryButton timestamp={1624458298865} active={true}/>
+                <HistoryButton timestamp={1624458298865} active={false}/>
+                <HistoryButton timestamp={1624458298865} active={false}/>
+                <HistoryButton timestamp={1624458298865} active={true}/>
+                <HistoryButton timestamp={1624458298865} active={false}/>
+                <HistoryButton timestamp={1624458298865} active={false}/>
+                <HistoryButton timestamp={1624458298865} active={true}/>
+                <HistoryButton timestamp={1624458298865} active={false}/>
+                <HistoryButton timestamp={1624458298865} active={true}/>
+                <HistoryButton timestamp={1624458298865} active={false}/>
+                <HistoryButton timestamp={1624458298865} active={false}/>
+                <HistoryButton timestamp={1624458298865} active={true}/>
                 <HistoryButton timestamp={1624458298865} active={false}/>
                 <HistoryButton timestamp={1624458298865} active={false}/>
                 <HistoryButton timestamp={1624458298865} active={true}/>

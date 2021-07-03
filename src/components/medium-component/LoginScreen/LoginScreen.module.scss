@@ -2,14 +2,63 @@
 
 .mainComponent {
     z-index: 5;
+    overflow: auto;
+    background-color: transparent;
+    width: 96%;
+    height: 100%;
+    position: fixed;
+    // @include b;
+    top: 20%;
+    left: 4%;
+    @include mt {
+        left: 1%;
+        width: 98%;
+        background-color: map-get($colors, "yellow");
+        border-radius: 22px;
+        // height: 50%;
+        height: 81%;
+    }
+    @include mobile {
+        top: 18%;
+        
+    }
+}
+.leftComponent {
+    width: 60%;
+    height: 78%;
+    // display: block;
+    border-radius: 30px;
+    // border: 1px solid black;
+
+    z-index: 5;
+    flex-direction: column;
+    position: relative;
+    @include mt {
+        display: none;
+    }
+}
+.rightComponent {
+    z-index: 5;
     width: 321px;
     height: 370px;
     // border: 1px solid black;
     position: relative;
-    // right: 8%;
-    // top: 20%;
+    @include desktop {
+        top: 10%;
+        left: 8%;
+    }
+    @include smdesktop {
+        top: 10%;
+        left: 5%;
+    }
     align-items: center;
     flex-direction: column;
+    @include mt {
+        align-self: center;
+        margin-left: auto;
+        margin-right: auto
+    }
+    // @include
 }
 .input {
     width: 278px;

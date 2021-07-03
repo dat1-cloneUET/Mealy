@@ -9,11 +9,13 @@ import {
   useLocation,
   Link
 } from "react-router-dom";
+// import Navigate from "./Contexts";
 ReactDOM.render(
+  // <Navigate>
   <Router>
     <App />
   </Router>
-
+// </Navigate>
   ,document.getElementById('root')
 );
 

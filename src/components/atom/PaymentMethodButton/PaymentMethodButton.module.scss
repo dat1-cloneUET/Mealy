@@ -11,6 +11,10 @@
     cursor: pointer;
     position: relative;
     transition: 0.6s;
+    @include mobile {
+        width: 88px;
+        height: 54px;
+    }
 }
 .mainComponent_active {
     @extend .mainComponent;
@@ -20,6 +24,10 @@
 .img {
     width: 24px;
     height: 24px;
+    @include mobile {
+        width: 21.6px;
+        height: 21.6px;
+    }
 }
 .img2 {
     width: 16px;
@@ -27,6 +35,12 @@
     position: absolute;
     right: 6px;
     top: 6px;
+    @include mobile {
+        width: 14.4px;
+        height: 14.4px;
+        right: 5.4px;
+        top: 5.4px;
+    }
 }
 
 .name_active {

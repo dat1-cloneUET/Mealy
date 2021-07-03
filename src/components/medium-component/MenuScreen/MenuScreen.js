@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Food from '../../atom/Food/Food';
 import FoodIcon from '../../atom/FoodIcon/FoodIcon';
 import styles from './MenuScreen.module.scss';
-
+import { motion } from "framer-motion";
 function MenuScreen() {
     const [active, setActive]= useState([false, false, false, false, false, false]);
     const handleChooseCategory = (num) => { 
@@ -11,7 +11,10 @@ function MenuScreen() {
         setActive(exp);
     }
     return (
-        <div className={styles.mainComponent}>
+        <motion.div 
+            initial= {{ opacity: 0.4, y: -100}}
+            animate= {{ opacity: 1, y: 0}}
+            className={styles.mainComponent}>
             <div className={styles.leftComponent}>
                 <p className={styles.text}>Popular Category</p>
                 <div className={styles.listIcon}>
@@ -48,7 +51,7 @@ function MenuScreen() {
                 
             </div>
             <img src="/image/svg/bigIcon.svg" alt="" className={styles.bigIcon}/>
-        </div>
+        </motion.div>
     )
 }
 

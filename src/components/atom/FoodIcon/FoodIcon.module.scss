@@ -25,13 +25,14 @@
 
 }
 .name {
-    margin-top: 33px;
+    margin-top: 34px;
     font-family: $font-1;
     font-size: 12px;
     font-weight: bold;
     cursor: pointer;
     @include mobile {
-        // transform: scale(0.8);
+        font-size: 11px;
+        line-height: 5px;
     }
     
 }
