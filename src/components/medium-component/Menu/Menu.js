@@ -41,7 +41,10 @@ function Menu(props) {
                     
                     <div  className={styles.openCategory} style={openCategory?{height: 100}: {height: 0, boxShadow: 'none'}}>
                         <SingleSection name="Home" img="/image/svg/home.svg" action={() => history.push("/")}/>
-                        <SingleSection name="Login" img="/image/svg/login.svg"/>
+                        
+                        <Link to="/login" style={{color: 'black', textDecoration: 'none'}}>
+                            <SingleSection name="Login" img="/image/svg/login.svg"/>
+                        </Link>
                         <Link to="/history" style={{color: 'black', textDecoration: 'none'}}>
                             <SingleSection name="History" img="/image/svg/logout.svg"/>
                         </Link>
