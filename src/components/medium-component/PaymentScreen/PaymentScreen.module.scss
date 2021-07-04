@@ -179,6 +179,7 @@
         border-radius: 28px;
         margin-left: 0;
         display: block;
+        // overflow-x: hidden;
         overflow-y: scroll;
     }
 }
@@ -202,6 +203,8 @@
         overflow: hidden;
         height: auto;
         display: block;
+        border: none;
+        padding-right: 0;
         // @include b;
     }
 
