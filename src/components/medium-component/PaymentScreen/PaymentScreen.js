@@ -14,20 +14,20 @@ function PaymenScreen() {
     }
     const history= useHistory();
     const [switchScreen, setSwitchScreen]= useState(false);
-    const [info, setInfo]= useState(true);
-    const [his, setHis]= useState(true);
+    const [info, setInfo]= useState("flex");
+    const [pay, setPay]= useState(true);
     useEffect(() => {
         window.addEventListener('resize', () => {
             
             const width= window.innerWidth;
             // console.log(width);
             if(width > 1024) {
-                setHis(true);
-                setInfo(true);
+                setPay(true);
+                setInfo("flex");
             }
             else {
-                setHis(true);
-                setInfo(false);
+                setPay(false);
+                setInfo("block");
             }
         });
     },[]);
@@ -35,30 +35,39 @@ function PaymenScreen() {
             const width= window.innerWidth;
             // console.log(width);
             if(width > 1024) {
-                setHis(true);
-                setInfo(true);
+                setPay(true);
+                setInfo("flex");
             }
             else {
-                setHis(true);
-                setInfo(false);
+                setPay(false);
+                setInfo("block");
             }
     },[]);
+    const handlePayment = () => {
+        if(!pay) setInfo("none");
+            else setInfo("block");
+        setPay(!pay);
+    }
     return (
         <motion.div 
             initial= {{ opacity: 0.4, y: -30}}
             animate= {{ opacity: 1, y: 0}}
             className={styles.mainComponent}>
-            <div className={styles.information} style={info?{display: "flex"}: {display: "none"}}>
+            <div className={styles.information} style={{display: info}}>
                 
                 <div className={styles.information_listFood}>
                     <div className={styles.head}>
-                        <img src="image/svg/back.svg" className={styles.back}/>
+                        <div className={styles.information_manageButton}>
+                            <img src="image/svg/back.svg" className={styles.back} onClick={() => history.push("/")}/>
+                            <img src="image/svg/next.svg" className={styles.next} onClick={handlePayment}/>
+                        </div>
                         <p className={styles.confirmation}>Confirmation</p>
+                        
                     </div>
                     <div className={styles.scroll}>
-                        <Receipt type={"Burger"} name={"oc cho burger"} number={2} price={1.69}/>
+                        {/* <Receipt type={"Burger"} name={"oc cho burger"} number={2} price={1.69}/>
                         <Receipt type={"Pizza"} name={"oc cho burger"} number={2} price={1.69}/>
-                        <Receipt type={"Burger"} name={"oc cho burger"} number={2} price={1.69}/>
+                        <Receipt type={"Burger"} name={"oc cho burger"} number={2} price={1.69}/> */}
                         <Receipt type={"Burger"} name={"oc cho burger"} number={2} price={1.69}/>
                         <Receipt type={"Burger"} name={"oc cho burger"} number={2} price={1.69}/>
                         <Receipt type={"Burger"} name={"oc cho burger"} number={2} price={1.69}/>
@@ -76,11 +85,11 @@ function PaymenScreen() {
             </div>
 
 
-            <div className={styles.payment}>
+            <div className={styles.payment} style={pay?{display: "flex"}: {display: "none"}}>
             <div style={{alignSelf: 'center', flexDirection: "column"}}>
             <div className={styles.payment_header} style={{justifyContent: 'space-between'}}>
                 <p >Payment</p>
-                <img src="/image/svg/back.svg" alt="" className={styles.payment_back}/>
+                <img src="/image/svg/back.svg" alt="" className={styles.payment_back} onClick={handlePayment}/>
             </div>    
                 <div className={styles.payment_all}>
                     <p className={styles.payment_paymentMethod}>Payment method</p>

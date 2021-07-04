@@ -17,10 +17,16 @@
         width: 98%;
         flex-direction: column;
     }
-    @include mobile {
+    @include mt {
         top: 18%;
-
+        // @include b;
+        width: 100%;
+        height: 81%;
+        // flex-direction: column;
+        display: block;
+        overflow-y: scroll;
     }
+
 }
 
 
@@ -36,14 +42,10 @@
         margin-left: 0;
         align-self: center;
         border-radius: 28px;
-    }
-    @include mobile {
+        height: 100%;
         padding: 0 2%;
         width: 96%;
         margin-left: 0;
-        // @include b;
-        border-radius: 28px;
-        height: 81%;
     }
 }
 .payment_back {
@@ -61,7 +63,7 @@
     border-bottom: 2px solid map-get($colors, "black3" );
     color: white;
     font-weight: 700;
-    @include mobile {
+    @include mt {
         font-size: 26px;
         margin-top: 12px;
         padding-bottom: 17px
@@ -150,18 +152,13 @@
     justify-content: space-between;
     margin-bottom: 5px;
     // @include b;
-    @include mobile {
+    @include mt {
         width: 305px;
         
     }
 }
 
-.information_headerdiv {
-    flex-direction: column;
-    position: absolute;
-    top: 220px;
-    left: 16px;
-}
+
 //information
 
 .information {
@@ -174,36 +171,89 @@
     // @include mt {
     //     display: none;
     // } 
+    @include mt {
+        width: 100%;
+        height: 100%;
+        border-radius: 28px;
+        margin-left: 0;
+        display: block;
+        overflow-y: scroll;
+    }
 }
 
 .information_manageButton {
-    width: 100%;
+    width: 98%;
     justify-content: space-between ;
+    // @include b;
 }
 .information_listFood {
-    width: 515px;
+    width: 63%;
     height: 94%;
     border-right: 2px solid #393C49;
     // align-items: center;
+    // @include b;
     flex-direction: column;
+    overflow: hidden;    
+    padding: 2% 1%;
+    @include mt {
+        width: 100%;
+        overflow: hidden;
+        height: auto;
+        display: block;
+        // @include b;
+    }
 
    
 }
 .information_total {
-    width: 259px;
-    height: 100%;
+    width: 34%;  
+    height: 98%;
+    padding-left: 0.5%;
     // border-right: 2px solid #393C49;
     position: relative;
+    @include mt {
+        width: 100%;
+        // @include b;
+        position: unset;
+        height: auto;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 1%;
+    }
+
 }
-.information_footerdiv {
+.information_footerdiv {   
+    overflow: hidden;
     position: absolute;
     bottom: 20px;
-    left: 16px;
-    width: 222px;
-    height: 80px;
+    width: 97%;
+    height: auto;
     padding-top: 24px;
     border-top: 2px solid #393C49;
     flex-direction: column;
+    // @include b;
+    @include mt {
+        position:unset;
+        width: 98%
+    }
+}
+.information_headerdiv {
+    flex-direction: column;
+    position: absolute;
+    top: 220px;
+    // left: 16px;
+    width: 97%;
+    @include mt {
+        position:unset;
+    overflow: hidden;
+    width: 98%;
+    height: auto;
+    padding-top: 24px;
+    border-top: 2px solid #393C49;
+    flex-direction: column;
+    // @include b;
+    }
 }
 .information_footerdiv_out {
     margin-bottom: 16px;
@@ -220,12 +270,11 @@
     font-size: 14px;
 }
 .head {
-    width: 96%;
+    width: 100%;
     height: 100px;
     padding-bottom: 15px;
     border-bottom: 1px solid #393C49;
     flex-direction: column;
-    margin-left: 12px;
     margin-top: 10px;
 }
 .back {
@@ -247,13 +296,14 @@
     font-size: 28px;
 }
 .scroll {
-    width: 505px;
+
+    width: 99%;
     height: 94%;
     flex-direction: column;
     overflow-y: scroll;
+    overflow-x: hidden;
+    padding-right: 1%;
     margin: 15px 0px;
-    justify-content: unset;
-    margin-left: 12px;
     &::-webkit-scrollbar{
         width: 8px;
     }
@@ -265,6 +315,12 @@
         background: map-get($colors, "gray3" );
         border-radius: 8px;
     }
+    @include mobile {
+        width: 100%;
+        // overflow: auto;
+        height: auto;
+        display: block;
+    }
 }
 // history 
 .history {
@@ -275,6 +331,7 @@
     flex-direction: column;
     margin-left: 15.6%;
     overflow-y: scroll;
+    padding: 1% 0   ;
     // padding: 1% 0;
     &::-webkit-scrollbar{
         width: 8px;
@@ -292,7 +349,7 @@
         align-self: center;
         border-radius: 28px;
     }
-    @include mobile {
+    @include mt {
         width: 100%;
         margin-left: 0;
         // @include b;

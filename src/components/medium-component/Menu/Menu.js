@@ -1,7 +1,8 @@
-import React, {useContext, useState} from 'react'
+import React, {useRef, useState, useEffect} from 'react'
 import styles from './Menu.module.scss';
 import CusButton from '../../atom/CusButton/CusButton';
 // import { Navigate } from '../../../Contexts';
+import OutsideClickHandler from 'react-outside-click-handler';
 import {
     BrowserRouter as Router,
     useHistory,
@@ -11,9 +12,11 @@ import {
 import SingleSection from '../../atom/SingleSection/SingleSection';
 function Menu(props) {
     let history = useHistory();
-    var [openCategory, setOpenCategory]= useState(true);
+    var [openCategory, setOpenCategory]= useState(false);
+    // const categoryRef= useRef();
+
     return (
-        <div className={styles.mainComponent}>
+        <div className={styles.mainComponent} >
             <div onClick={()=> history.push("/")} style={{cursor: 'pointer'}}>
                 <img src={'/image/svg/knife.svg'} alt="" className={styles.img}/>
                 <div className={styles.projectName}>
@@ -22,23 +25,31 @@ function Menu(props) {
                 </div>
             </div>
             
-            <div className={styles.boxMenu}>
+            <div  className={styles.boxMenu}>
+            <OutsideClickHandler onOutsideClick={() => setOpenCategory(false)} >
+          
             <div className={styles.boxCategory}>
-                <div    className={styles.category} 
+                <div      className={styles.category} 
                         onClick={() => setOpenCategory(!openCategory)} 
+                        // onMouseLeave={() =>setOpenCategory(false)}
+                        
                         >
                     <img src={openCategory?'image/svg/x.svg':'/image/svg/category.svg'} alt=""/>
                     <p className={styles.text3}>Categorys</p>
                 </div>
                 {
                     
-                    <div className={styles.openCategory} style={openCategory?{height: 100}: {height: 0, boxShadow: 'none'}}>
-                        <SingleSection name="Home" img="/image/svg/home.svg"/>
+                    <div  className={styles.openCategory} style={openCategory?{height: 100}: {height: 0, boxShadow: 'none'}}>
+                        <SingleSection name="Home" img="/image/svg/home.svg" action={() => history.push("/")}/>
                         <SingleSection name="Login" img="/image/svg/login.svg"/>
-                        <SingleSection name="Logout" img="/image/svg/logout.svg"/>
+                        <Link to="/history" style={{color: 'black', textDecoration: 'none'}}>
+                            <SingleSection name="History" img="/image/svg/logout.svg"/>
+                        </Link>
+                        
                     </div>
                 }
             </div>
+            </OutsideClickHandler>
 
                 
             </div>

@@ -1,7 +1,7 @@
 @import '../../abc';
 
 .mainContainer {
-    width: 485px;
+    width: 100%;
     height: 110px;
     font-size: 14px;
     color: map-get($colors, "white");
@@ -9,6 +9,7 @@
     flex-direction: column;
     justify-content: space-between;
     padding: 8px 0px;
+    // @include b;
     // border-bottom: 1px solid #393C49;
 }
 .footer {
@@ -24,15 +25,20 @@
     justify-content: space-between;
 }
 .note {
-    width: 390px;
+    width: 72%;
     height: 20px;
     background-color: map-get($colors, "gray2" );
-    padding: 14px;
+    padding: 14px 2%;
     border-radius: 8px;
+    // @include b;
     color: #E0E6E9;
     font-family: $font-1;
     &::placeholder{
         color: #889898;
+    }
+    @include smdesktop {
+        width: 65%;
+        padding: 11px;
     }
 }
 .delete {
@@ -57,9 +63,14 @@
 .box {
     flex-direction: column;
     justify-content: space-around;
+    overflow: hidden;
     height: 48px;
-    width: 370px;
-    margin-left: 10px;
+    width: 55%;
+    // @include b;
+    // margin-left: 10px;
+    @include smdesktop {
+        width: 50%;
+    }
 }
 
 .name {

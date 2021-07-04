@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom';
 function HistoryScreen() {
     const history= useHistory()
     const [switchScreen, setSwitchScreen]= useState(false);
-    const [info, setInfo]= useState(true);
+    const [info, setInfo]= useState("flex");
     const [his, setHis]= useState(true);
     useEffect(() => {
         window.addEventListener('resize', () => {
@@ -17,11 +17,11 @@ function HistoryScreen() {
             // console.log(width);
             if(width > 1024) {
                 setHis(true);
-                setInfo(true);
+                setInfo("flex");
             }
             else {
                 setHis(true);
-                setInfo(false);
+                setInfo("none");
             }
         });
     },[]);
@@ -30,24 +30,30 @@ function HistoryScreen() {
         // console.log(width);
         if(width > 1024) {
             setHis(true);
-            setInfo(true);
+            setInfo("flex");
         }
         else {
             setHis(true);
-            setInfo(false);
+            setInfo("none");
         }
 },[]);
+const handleSwitch = () =>{
+    if(his) 
+        setInfo("block");
+        else setInfo("none");
+    setHis(!his);
+}
     return (
         <motion.div 
             initial= {{ opacity: 0.4, y: -30}}
             animate= {{ opacity: 1, y: 0}}
             className={styles.mainComponent}>
-            <div className={styles.information} style={info?{display: "flex"}: {display: "none"}}>
+            <div className={styles.information} style={info?{display: info}: {display: "none"}}>
                 
                 <div className={styles.information_listFood}>
                     <div className={styles.head}>
                     <div className={styles.information_manageButton}>
-                        <img src="image/svg/back.svg" className={styles.back} onClick={() => setSwitchScreen(!switchScreen)}/>
+                        <img src="image/svg/back.svg" className={styles.back} onClick={handleSwitch}/>
                         {/* <img src="image/svg/next.svg" className={styles.next} onClick={() => setSwitchScreen(!switchScreen)}/> */}
                     </div>
                         
@@ -82,7 +88,7 @@ function HistoryScreen() {
 
             {/* style={!switchScreen?{ display: "none"}: { display: "flex"}} */}
             <div  className={styles.history} style={his?{display: "flex"}: {display: "none"}}>
-                <img src="image/svg/back.svg" className={styles.historyBack} onClick={() => setSwitchScreen(!switchScreen)} style={{marginLeft: 17, marginBottom: 10, marginTop: 10}}/>
+                <img src="image/svg/back.svg" className={styles.historyBack} onClick={handleSwitch} style={{marginLeft: 17, marginBottom: 10, marginTop: 10}}/>
                 <HistoryButton timestamp={1624458298865} active={false}/>
                 <HistoryButton timestamp={1624458298865} active={false}/>
                 <HistoryButton timestamp={1624458298865} active={true}/>
