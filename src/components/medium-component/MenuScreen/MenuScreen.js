@@ -51,17 +51,17 @@ function MenuScreen() {
                         </div>
                     </div>
                     <div className={styles.listFood}>
-                    {
+                    {/* {
                         listFood?listFood.map((item, index) => 
                             (<Food  key={index} 
                                     type={item.type}
                                     name={item.name}
                                     price={item.price}
                                     />)):<div/>
-                    }
-                        {/* <Food type={'burger'}/>
-                        <Food type={'noodle'}/>
-                        <Food type={'chicken'}/>
+                    } */}
+                        <Food type={'burger'} name={"hdhdh"} price={2}/>
+                        <Food type={'pasta'} name={"hdhdh"} price={3}/>
+                        {/* <Food type={'chicken'}/>
                         <Food type={'pizza'}/>
                         <Food type={'sandwitch'}/>
                         <Food type={'desert'}/>
