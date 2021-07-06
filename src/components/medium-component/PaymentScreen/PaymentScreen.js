@@ -2,6 +2,7 @@ import React, { useEffect, useLayoutEffect, useState } from 'react'
 import PaymentMethodButton from '../../atom/PaymentMethodButton/PaymentMethodButton'
 import styles from './PaymentScreen.module.scss'
 import { motion } from 'framer-motion';
+
 import InfoPair from '../../atom/InfoPair/InfoPair';
 import Receipt from '../../atom/Receipt/Receipt';
 import { useHistory } from 'react-router';
