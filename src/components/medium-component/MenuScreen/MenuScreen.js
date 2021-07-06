@@ -47,7 +47,7 @@ function MenuScreen() {
                             <FoodIcon type={'pasta'} active={active[4]}/>
                         </div>
                         <div onClick={() => handleChooseCategory(5)}>
-                            <FoodIcon type={'desert'} active={active[5]}/>
+                            <FoodIcon type={'chicken'} active={active[5]}/>
                         </div>
                     </div>
                     <div className={styles.listFood}>
