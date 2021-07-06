@@ -47,25 +47,20 @@ function MenuScreen() {
                             <FoodIcon type={'pasta'} active={active[4]}/>
                         </div>
                         <div onClick={() => handleChooseCategory(5)}>
-                            <FoodIcon type={'chicken'} active={active[5]}/>
+                            <FoodIcon type={'desert'} active={active[5]}/>
                         </div>
                     </div>
                     <div className={styles.listFood}>
-                    {/* {
+                    {
                         listFood?listFood.map((item, index) => 
                             (<Food  key={index} 
                                     type={item.type}
                                     name={item.name}
                                     price={item.price}
                                     />)):<div/>
-                    } */}
-                        <Food type={'burger'} name={"hdhdh"} price={2}/>
-                        <Food type={'pasta'} name={"hdhdh"} price={3}/>
-                        {/* <Food type={'chicken'}/>
-                        <Food type={'pizza'}/>
-                        <Food type={'sandwitch'}/>
-                        <Food type={'desert'}/>
-                        <Food type={'burger'}/> */}
+                    }
+                     
+       
                     </div>
                 </div>
                 
