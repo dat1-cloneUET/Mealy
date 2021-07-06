@@ -68,12 +68,12 @@ function PaymenScreen() {
                         {/* <Receipt type={"Burger"} name={"oc cho burger"} number={2} price={1.69}/>
                         <Receipt type={"Pizza"} name={"oc cho burger"} number={2} price={1.69}/>
                         <Receipt type={"Burger"} name={"oc cho burger"} number={2} price={1.69}/> */}
-                        <Receipt type={"Burger"} name={"oc cho burger"} number={2} price={1.69}/>
-                        <Receipt type={"Burger"} name={"oc cho burger"} number={2} price={1.69}/>
-                        <Receipt type={"Burger"} name={"oc cho burger"} number={2} price={1.69}/>
-                        <Receipt type={"Burger"} name={"oc cho burger"} number={2} price={1.69}/>
-                        <Receipt type={"Burger"} name={"oc cho burger"} number={2} price={1.69}/>
-                        <Receipt type={"Burger"} name={"oc cho burger"} number={2} price={1.69}/>
+                        <Receipt type={"burger"} name={"oc cho burger"} number={2} price={1.69}/>
+                        <Receipt type={"sandwitch"} name={"oc cho burger"} number={2} price={1.69}/>
+                        <Receipt type={"pasta"} name={"oc cho burger"} number={2} price={1.69}/>
+                        <Receipt type={"desert"} name={"oc cho burger"} number={2} price={1.69}/>
+                        <Receipt type={"chicken"} name={"oc cho burger"} number={2} price={1.69}/>
+                        <Receipt type={"burger"} name={"oc cho burger"} number={2} price={1.69}/>
                     </div>
                 </div>
                 <div className={styles.information_total}>

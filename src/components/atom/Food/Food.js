@@ -1,26 +1,25 @@
 import React from 'react'
 import styles from './Food.module.scss'
 
-function Food(props) {
-    const {type, name, price}= props;
+function Food( { type, name, price } ) {
     var header;
     switch (type){
-        case "Pizza":
+        case "pizza":
             header=styles.header_pizza;
             break;
-        case "Burger":
+        case "burger":
             header=styles.header_burger;
             break;
-        case "Sandwitch":
+        case "sandwitch":
             header=styles.header_sandwitch;
             break;
-        case "Noodle":
+        case "pasta":
             header=styles.header_noodle;
             break;
-        case "Fires":
+        case "desert":
             header=styles.header_fries;
             break;
-        case "Chicken":
+        case "chicken":
             header=styles.header_chicken;
             break;
     }
@@ -28,8 +27,8 @@ function Food(props) {
         <div className={styles.mainComponent}>
             <div className={header}>
                 <img src={`image/svg/foodIcon/${type}-active.svg`} alt="" className={styles.img}/>
-                <p className={styles.name}>Hamburger Cua</p>
-                <p className={styles.price}>$2.06</p>
+                <p className={styles.name}>{name}</p>
+                <p className={styles.price}>{`$${price}`}</p>
             </div>
             <div className={styles.footer}>
             <img src={'image/svg/add.svg'} alt="" className={styles.icon}/>

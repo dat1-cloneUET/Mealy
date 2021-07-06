@@ -30,6 +30,7 @@
     font-size: 12px;
     font-weight: bold;
     cursor: pointer;
+    text-transform: capitalize;
     @include mobile {
         font-size: 11px;
         line-height: 5px;
