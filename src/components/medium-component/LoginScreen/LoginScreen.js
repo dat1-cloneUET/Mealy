@@ -1,29 +1,83 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import CusButton from '../../atom/CusButton/CusButton'
 import Recent from '../../atom/Recent/Recent';
 import styles from './LoginScreen.module.scss'
 import stylesMainScreen from '../MainScreen/MainScreen.module.scss';
-import { motion } from 'framer-motion';
+import { LayoutGroupContext, motion } from 'framer-motion';
 import { useHistory } from 'react-router-dom';
-function LoginScreen() {
-    const [signUp, setSignUp]= useState(false);
+import { useAuth } from '../../context/AuthProvider'
+import { firestore } from '../../../firebase';
+import { useBooking } from '../../context/BookingProvider'
+function LoginScreen({setname}) {
+    const [signUpScreen, setSignUpScreen]= useState(false);
     const [username, setUsername]= useState("");
+    const [email, setEmail]= useState("");
     const [password, setPassword]= useState("");
     const [confirmPassword, setConfirmPassword]= useState("");
+    const [spanEmail, setSpanEmail]= useState("");
     const [spanUsername, setSpanUsername]= useState("");
     const [spanPassword, setSpanPassword]= useState("");
     const [spanConfirmPassword, setSpanConfirmPassword]= useState("");
+    const { signup, login, currentUser, logout, setCurrentUser } = useAuth();
+    // useEffect(async() => {
+    //     await logout();
+    // }, [])
+    // if(currentUser) console.log("dang co user");
+    //     else console.log("ko co");
+    console.log(useBooking());
     const handleSwitch = () =>{
-        if(signUp)
-            setSpanConfirmPassword("");
-        setSignUp(!signUp);
+        setSpanConfirmPassword("");
+        setSpanUsername("");
+        setSignUpScreen(!signUpScreen);
         
     }
+    async function handleSignUp() {
+        checkvalid("email");
+        checkvalid("password");
+        checkvalid("username");
+        checkvalid("confirmpassword");
+        if(spanEmail !== "" || spanPassword !== "" || spanConfirmPassword !== "" || spanUsername !== "") 
+            return ;
+        signup(email, password)
+            .then(async res => {
+                await firestore.collection("Users").doc(res.user.uid).set({
+                    id: res.user.uid,
+                    name: username
+                });
+                setSignUpScreen(false);
+            })
+            .catch(err => {setSpanEmail("Email already in use")})
+  
+        
+    }
+    const handleLogin = async() => {
+        console.log("Signin");
+        login(email, password)
+            .then(async (res) => {
+                setCurrentUser(res);
+                await firestore.collection("Users").doc(res.user.uid).get()
+                    .then(res => setname(res.data().name));
+                    history.push("/");
+            })
+            .catch(err => {
+                if(err.code === "auth/user-not-found"){
+                    setSpanEmail("Email not found");
+                    setSpanPassword("");
+                    return;
+                }
+                setSpanPassword("Wrong password");
+                setSpanEmail("");
+                // console.log(errc)
+            });
+    
+    }
+
     const checkvalid = (type) => {
         switch (type){
-            case "username":
-                if(username.length < 6)
-                    setSpanUsername("Must Contain at Least 6 characters");
+            case "email":
+                const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                if(!re.test(String(email).toLowerCase()))
+                    setSpanEmail("Email not valid");
                 break;
             case "password":
                 if(password.length < 6){
@@ -43,6 +97,10 @@ function LoginScreen() {
                 if(password !== confirmPassword)
                     setSpanConfirmPassword("Confirm and password must be the same");
                 break;
+            case "username":
+                if(username === "")
+                setSpanUsername("Username not valid");
+                    break;
         }
     }
     const history= useHistory();
@@ -74,27 +132,38 @@ function LoginScreen() {
             </div>
             <div className={styles.rightComponent}>
                 <input  type="text" 
-                        placeholder="username" 
-                        onChange={e => setUsername(e.target.value)}
-                        value={username}
-                        className={spanUsername != "" ?styles.input_warn : styles.input} 
-                        onBlur={() =>checkvalid("username")} 
-                        onFocus={()=>setSpanUsername("")}/>
-                <span className={styles.span}>{spanUsername}</span>
+                        placeholder="email" 
+                        onChange={e => setEmail(e.target.value)}
+                        value={email}
+                        className={spanEmail !== "" ?styles.input_warn : styles.input} 
+                        onBlur={() =>checkvalid("email")} 
+                        onFocus={()=>setSpanEmail("")}/>
+                <span className={styles.span}>{spanEmail}</span>
+                <div className={signUpScreen?styles.visible: styles.notvisible}>
+                    <input  type="text"
+                            placeholder="username" 
+                            onChange={e => setUsername(e.target.value)}
+                            value={username}
+                            className={spanUsername !== "" ?styles.input_warn : styles.input} 
+                            onBlur={() =>checkvalid("username")} 
+                            onFocus={()=>setSpanUsername("")}/>       
+                    
+                </div>
+                <span className={styles.span} style={{marginTop: -20}}>{spanUsername}</span>
                 <input  type="password" 
                         placeholder="password" 
                         onChange={e => setPassword(e.target.value)}
                         value={password}
-                        className={spanPassword != "" ?styles.input_warn : styles.input} 
+                        className={spanPassword !== "" ?styles.input_warn : styles.input} 
                         onBlur={() =>checkvalid("password")} 
                         onFocus={()=>setSpanPassword("")}/>
                 <span className={styles.span}>{spanPassword}</span>
-                <div className={signUp?styles.visible: styles.notvisible}>
+                <div className={signUpScreen?styles.visible: styles.notvisible}>
                     <input  type="password"
                             placeholder="confirm password" 
                             onChange={e => setConfirmPassword(e.target.value)}
                             value={confirmPassword}
-                            className={spanConfirmPassword !=""? styles.input_warn : styles.input} 
+                            className={spanConfirmPassword !== ""? styles.input_warn : styles.input} 
                             onBlur={() =>checkvalid("confirmpassword")} 
                             onFocus={()=>setSpanConfirmPassword("")}/>
                     
@@ -102,15 +171,15 @@ function LoginScreen() {
                 <span className={styles.span} style={{marginTop: -20}}>{spanConfirmPassword}</span>
                 
                 <div className={styles.footer}>
-                    {signUp?<div></div>:<p className={styles.forgotpassword}>forgot password?</p>}
+                    {signUpScreen?<div></div>:<p className={styles.forgotpassword}>forgot password?</p>}
                     
-                    <CusButton data={signUp?"Sign Up":"Log In"}/>
+                    <CusButton data={signUpScreen?"Sign Up":"Log In"} handleClick={signUpScreen? handleSignUp: handleLogin}/>
                     <p className={styles.descript}>
                         <span>
-                            {signUp?"Already have an account, ":"Don't have an account, "}
+                            {signUpScreen?"Already have an account, ":"Don't have an account, "}
                         </span>
                         <span className={styles.signUp} onClick={()=>handleSwitch()}>
-                            {signUp?"Sign Up":"Sign In"}
+                            {signUpScreen?"Sign Up":"Sign In"}
                         </span> now.
                     </p>
                 </div>

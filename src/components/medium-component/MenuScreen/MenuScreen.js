@@ -1,27 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import Food from '../../atom/Food/Food';
 import FoodIcon from '../../atom/FoodIcon/FoodIcon';
 import styles from './MenuScreen.module.scss';
 import { motion } from "framer-motion";
-import firebase from '../../../firebase';
+import { useBooking } from '../../context/BookingProvider'
 function MenuScreen() {
-    const [active, setActive]= useState([false, false, false, false, false, false]);
-    const handleChooseCategory = (num) => { 
-        let exp= [false, false, false, false, false, false];
-        exp[num]= !active[num];
-        setActive(exp);
+    const [active, setActive]= useState("none");
+    const handleChooseCategory = (val) => { 
+        if (active === val ) 
+            setActive("none");
+        else setActive(val);
     }
-    const [listFood, setListFood]= useState();
-    useEffect(() => {
-        async function fetchData(){
-            let firestore= firebase.firestore();
-            let data= (await firestore.collection("Menu").orderBy("type").get());
-            data= data.docs.map(doc => doc.data());
-            setListFood(data);
-        }
-        fetchData();
+    const { listItem }= useBooking();
 
-    }, [])
     return (
         <motion.div 
             initial= {{ opacity: 0.4, y: -100}}
@@ -31,32 +22,23 @@ function MenuScreen() {
                 <p className={styles.text}>Popular Category</p>
                 <div className={styles.listIcon}>
                     <div className={styles.list}>
-                        <div onClick={() => handleChooseCategory(0)} className={styles.icon}>
-                            <FoodIcon type={'pizza'} active={active[0]}/>
-                        </div>
-                        <div onClick={() => handleChooseCategory(1)} className={styles.icon} >
-                            <FoodIcon type={'burger'} active={active[1]}/>
-                        </div>
-                        <div onClick={() => handleChooseCategory(2)} className={styles.icon}>
-                            <FoodIcon type={'sandwitch'} active={active[2]}/>
-                        </div>
-                        <div onClick={() => handleChooseCategory(3)} className={styles.icon}>
-                            <FoodIcon type={'chicken'} active={active[3]}/>
-                        </div>
-                        <div onClick={() => handleChooseCategory(4)} className={styles.icon}>
-                            <FoodIcon type={'pasta'} active={active[4]}/>
-                        </div>
-                        <div onClick={() => handleChooseCategory(5)}>
-                            <FoodIcon type={'desert'} active={active[5]}/>
-                        </div>
+                        <FoodIcon type={'pizza'} active={active === "pizza"} handleChooseCategory={() => handleChooseCategory("pizza")}/>
+                        <FoodIcon type={'burger'} active={active === "burger"} handleChooseCategory={() => handleChooseCategory("burger")}/>
+                        <FoodIcon type={'sandwitch'} active={active === "sandwitch"} handleChooseCategory={() => handleChooseCategory("sandwitch")}/>
+                        <FoodIcon type={'chicken'} active={active === "chicken"} handleChooseCategory={() => handleChooseCategory("chicken")}/>
+                        <FoodIcon type={'pasta'} active={active === "pasta"} handleChooseCategory={() => handleChooseCategory("pasta")}/>
+                        <FoodIcon type={'desert'} active={active === "desert"} handleChooseCategory={() => handleChooseCategory("desert")}/>
                     </div>
                     <div className={styles.listFood}>
                     {
-                        listFood?listFood.map((item, index) => 
-                            (<Food  key={index} 
+                        listItem?listItem.filter(item => {
+                            if(active === "none") return item;
+                            else return item.type === active}).map((item) => 
+                            (<Food  key={item.id} 
                                     type={item.type}
                                     name={item.name}
                                     price={item.price}
+                                    id={item.id}
                                     />)):<div/>
                     }
                      
@@ -70,4 +52,4 @@ function MenuScreen() {
     )
 }
 
-export default MenuScreen
+export default React.memo(MenuScreen)

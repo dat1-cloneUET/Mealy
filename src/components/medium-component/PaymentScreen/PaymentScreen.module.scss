@@ -144,6 +144,8 @@
     padding-top: 18px;
     border-top: 2px solid map-get($colors, "black3" );
     width: 358px;
+    font-family: $font-1;
+    // color: white;
     @include mobile {
         width: 330px
     }

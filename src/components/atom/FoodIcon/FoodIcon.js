@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import styles from './FoodIcon.module.scss'
 import { motion } from "framer-motion";
 function FoodIcon(props) {
-    const {type, active} =props;
+    const {type, active, handleChooseCategory} =props;
 //onClick={handleActive}
     return (
-        <div className={styles.mainComponent} >
+        <div className={styles.mainComponent} onClick={handleChooseCategory}>
             {/* <div className={styles.img}>
                 <img src={`image/svg/foodIcon/${type}.svg`} alt="" />
             </div> */}

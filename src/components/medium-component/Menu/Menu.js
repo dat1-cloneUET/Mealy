@@ -1,7 +1,8 @@
 import React, {useRef, useState, useEffect} from 'react'
 import styles from './Menu.module.scss';
 import CusButton from '../../atom/CusButton/CusButton';
-// import { Navigate } from '../../../Contexts';
+import { useAuth } from '../../context/AuthProvider'
+import { firestore } from '../../../firebase';
 import OutsideClickHandler from 'react-outside-click-handler';
 import {
     BrowserRouter as Router,
@@ -10,11 +11,24 @@ import {
     Link
   } from "react-router-dom";
 import SingleSection from '../../atom/SingleSection/SingleSection';
-function Menu(props) {
+function Menu({name, setname}) {
     let history = useHistory();
-    var [openCategory, setOpenCategory]= useState(false);
-    // const categoryRef= useRef();
+    const [openCategory, setOpenCategory]= useState(false);
+    const { curentUser, logout, setCurrentUser }= useAuth();
+    async function handleLogout(){
+        // console.log("logout");
+        try {
+            logout().then(res => {
+                setCurrentUser(undefined);
+                setname(undefined);
+            history.push("/");
+            });
 
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return (
         <div className={styles.mainComponent} >
             <div onClick={()=> history.push("/")} style={{cursor: 'pointer'}}>
@@ -41,13 +55,20 @@ function Menu(props) {
                     
                     <div  className={styles.openCategory} style={openCategory?{height: 100}: {height: 0, boxShadow: 'none'}}>
                         <SingleSection name="Home" img="/image/svg/home.svg" action={() => history.push("/")}/>
+                        {
+                            name?
+                                <div style={{flexDirection: 'column'}}>
+                                    <SingleSection name="Logout" img="/image/svg/logout.svg" action={handleLogout}/>
+                                    <Link to="/history" style={{color: 'black', textDecoration: 'none'}}>
+                                        <SingleSection name="History" img="/image/svg/history.svg"/>
+                                    </Link>
+                                </div>:
+                                <Link to="/login" style={{color: 'black', textDecoration: 'none'}}>
+                                    <SingleSection name="Login" img="/image/svg/login.svg"/>
+                                </Link>
+                                
+                        }
                         
-                        <Link to="/login" style={{color: 'black', textDecoration: 'none'}}>
-                            <SingleSection name="Login" img="/image/svg/login.svg"/>
-                        </Link>
-                        <Link to="/history" style={{color: 'black', textDecoration: 'none'}}>
-                            <SingleSection name="History" img="/image/svg/logout.svg"/>
-                        </Link>
                         
                     </div>
                 }
@@ -71,7 +92,11 @@ function Menu(props) {
                 <img src={'/image/svg/icecream.svg'} alt="" />
             </Link>
             <div className={styles.button}>
-                <CusButton data={'Account'} handleClick={() => history.push("/login")}/>
+            {
+                name?<CusButton data={name}/>:
+                <CusButton data={"Account"} handleClick={() => history.push("/login")}/>
+            }
+                
             </div>
             
 

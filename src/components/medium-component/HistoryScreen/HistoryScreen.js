@@ -65,15 +65,15 @@ const handleSwitch = () =>{
                         <p className={styles.confirmation}>Confirmation</p>
                     </div>
                     <div className={styles.scroll}>
-                        <Receipt type={"Burger"} name={"oc cho burger"} number={2} price={1.69}/>
-                        <Receipt type={"Pizza"} name={"oc cho burger"} number={2} price={1.69}/>
-                        <Receipt type={"Burger"} name={"oc cho burger"} number={2} price={1.69}/>
-                        <Receipt type={"Burger"} name={"oc cho burger"} number={2} price={1.69}/>
-                        <Receipt type={"Burger"} name={"oc cho burger"} number={2} price={1.69}/>
-                        <Receipt type={"Burger"} name={"oc cho burger"} number={2} price={1.69}/>
-                        <Receipt type={"Burger"} name={"oc cho burger"} number={2} price={1.69}/>
-                        <Receipt type={"Burger"} name={"oc cho burger"} number={2} price={1.69}/>
-                        <Receipt type={"Burger"} name={"oc cho burger"} number={2} price={1.69}/>
+                        <Receipt type={"burger"} name={"oc cho burger"} number={2} price={1.69}/>
+                        <Receipt type={"pizza"} name={"oc cho burger"} number={2} price={1.69}/>
+                        <Receipt type={"burger"} name={"oc cho burger"} number={2} price={1.69}/>
+                        <Receipt type={"burger"} name={"oc cho burger"} number={2} price={1.69}/>
+                        <Receipt type={"burger"} name={"oc cho burger"} number={2} price={1.69}/>
+                        <Receipt type={"burger"} name={"oc cho burger"} number={2} price={1.69}/>
+                        <Receipt type={"burger"} name={"oc cho burger"} number={2} price={1.69}/>
+                        <Receipt type={"burger"} name={"oc cho burger"} number={2} price={1.69}/>
+                        <Receipt type={"burger"} name={"oc cho burger"} number={2} price={1.69}/>
                     </div>
                 </div>
         

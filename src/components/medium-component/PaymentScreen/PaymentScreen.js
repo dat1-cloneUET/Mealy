@@ -2,10 +2,10 @@ import React, { useEffect, useLayoutEffect, useState } from 'react'
 import PaymentMethodButton from '../../atom/PaymentMethodButton/PaymentMethodButton'
 import styles from './PaymentScreen.module.scss'
 import { motion } from 'framer-motion';
-
 import InfoPair from '../../atom/InfoPair/InfoPair';
 import Receipt from '../../atom/Receipt/Receipt';
 import { useHistory } from 'react-router';
+import { useBooking } from '../../context/BookingProvider'
 function PaymenScreen() {
     const [method, setMethod]= useState([true, false, false]);
     const handleChangeMethod = (val) => {
@@ -17,9 +17,14 @@ function PaymenScreen() {
     const [switchScreen, setSwitchScreen]= useState(false);
     const [info, setInfo]= useState("flex");
     const [pay, setPay]= useState(true);
+    const [list, setList]= useState();
+    const { listItem, cart, deleteItem } = useBooking();
+    const [receivename, setReceivename]= useState("");
+    const [receiveaddress, setReceiveaddress]= useState("");
+    const [receivephone, setReceivephone]= useState();
+    const [total, setTotal]= useState(0);
     useEffect(() => {
         window.addEventListener('resize', () => {
-            
             const width= window.innerWidth;
             // console.log(width);
             if(width > 1024) {
@@ -49,6 +54,29 @@ function PaymenScreen() {
             else setInfo("block");
         setPay(!pay);
     }
+    const renderCart = () => {
+        let cart2=[];
+        
+        for (let [key, value] of Object.entries(cart)) {
+            let obj= listItem.find(item => item.id == key);
+            cart2.push( <Receipt key={obj.id} type={obj.type} 
+                                name={obj.name} number={value} 
+                                price={obj.price} onDelete={() => deleteItem(key)}
+                                id={key}
+                                />)
+          }
+        // setTotal(price);
+        return cart2;
+    }
+    useEffect(() => {
+        let price=0;
+        for (let [key, value] of Object.entries(cart)) {
+            let obj= listItem.find(item => item.id == key);
+            price= price + obj.price * parseInt(value);
+            console.log(price);
+          }
+          setTotal(price);
+    },[cart])
     return (
         <motion.div 
             initial= {{ opacity: 0.4, y: -30}}
@@ -66,21 +94,15 @@ function PaymenScreen() {
                         
                     </div>
                     <div className={styles.scroll}>
-                        {/* <Receipt type={"Burger"} name={"oc cho burger"} number={2} price={1.69}/>
-                        <Receipt type={"Pizza"} name={"oc cho burger"} number={2} price={1.69}/>
-                        <Receipt type={"Burger"} name={"oc cho burger"} number={2} price={1.69}/> */}
-                        <Receipt type={"burger"} name={"oc cho burger"} number={2} price={1.69}/>
-                        <Receipt type={"sandwitch"} name={"oc cho burger"} number={2} price={1.69}/>
-                        <Receipt type={"pasta"} name={"oc cho burger"} number={2} price={1.69}/>
-                        <Receipt type={"desert"} name={"oc cho burger"} number={2} price={1.69}/>
-                        <Receipt type={"chicken"} name={"oc cho burger"} number={2} price={1.69}/>
-                        <Receipt type={"burger"} name={"oc cho burger"} number={2} price={1.69}/>
+                        {
+                         renderCart()
+                        }
                     </div>
                 </div>
                 <div className={styles.information_total}>
                     <div className={styles.information_footerdiv}>
-                        <InfoPair keyy={"Discount"} value={"1st, Ha Huy Tap, Ha Tinh Ha Huy Tap, Ha Tinh"}/>
-                        <InfoPair keyy={"Sub total"} value={"$120"}/>
+                        <InfoPair keyy={"Discount"} value={"0"}/>
+                        <InfoPair keyy={"Sub total"} value={`$${total.toFixed(2)}`}/>
                     </div>
                 </div>
             </div>
@@ -100,18 +122,29 @@ function PaymenScreen() {
                         <PaymentMethodButton active={method[2]} type="cash"  handleChangeMethod={() => handleChangeMethod(2)}/>
                     </div>
                 </div>
-                <lablel className={styles.payment_label}>Receive Name</lablel>
-                <input className={styles.payment_input} type="text" placeholder="EX: Eimi Fudaka"/>
-                <lablel className={styles.payment_label}>Address</lablel>
-                <input className={styles.payment_input} type="text" placeholder="EX: 1st, Ha Huy Tap, Ha Tinh"/>
-                <lablel className={styles.payment_label}>Phone number</lablel>
-                <input className={styles.payment_input} type="text" placeholder="EX: 12345678"/>
-                <div className={styles.button}>
-                    <button className={styles.button_cancel}>Cancel</button>
-                    <button className={styles.button_confirm}>Confirm Payment</button>
+
+                {
+                    method[0]?
+                    <div style={{flexDirection: 'column'}}>
+                        <lablel className={styles.payment_label}>Receive Name</lablel>
+                        <input  className={styles.payment_input} type="text" placeholder="EX: Eimi Fudaka" 
+                                onChange={e => setReceivename(e.target.value)}/>
+                        <lablel className={styles.payment_label}>Address</lablel>
+                        <input  className={styles.payment_input} type="text" placeholder="EX: 1st, Ha Huy Tap, Ha Tinh"
+                                onChange={e => setReceiveaddress(e.target.value)}
+                        />
+                        <lablel className={styles.payment_label}>Phone number</lablel>
+                        <input className={styles.payment_input}  pattern="[0-9]+" type="text" placeholder="EX: 12345678" onChange={e => {
+                            setReceivephone(e.target.value)
+                        }}/>
+                        <div className={styles.button}>
+                            <button className={styles.button_cancel}>Cancel</button>
+                            <button className={styles.button_confirm}>Confirm Payment</button>
+                        </div>
+                    </div>:
+                    <lablel className={styles.button}>Not Supported yet</lablel>
+                }
                 </div>
-                </div>
-                {/* <HistoryButton timestamp={1624458298865} active={true}/> */}
             </div>
         </motion.div>
     )

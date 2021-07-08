@@ -10,35 +10,49 @@ import { motion } from 'framer-motion';
 import {
   Route,
   useHistory,
-  useLocation
+  useLocation, 
+  Switch
 } from "react-router-dom";
 import { useState, useContext } from 'react';
 // import { Navigate } from './Contexts';
 import HistoryScreen from './components/medium-component/HistoryScreen/HistoryScreen';
+import { AuthProvider } from './components/context/AuthProvider';
+import {firestore} from './firebase';
+import { useAuth } from './components/context/AuthProvider';
+import { useBooking } from './components/context/BookingProvider'
+import { BookingProvider } from './components/context/BookingProvider'
 function App() {
-
+  const [name, setname]= useState();
   return (
-    <div className={styles.App}>
-        <Menu />
-        <Poster/>
+    <AuthProvider>
+    <BookingProvider>
+      <div className={styles.App}>
+          <Menu name={name} setname={setname} />
+          <Poster/>
 
-        <div className={styles.mainComponent}/>
-          <Route path="/" exact>
-              <MainScreen />
-          </Route>
-          <Route path="/order" exact>
-              <MenuScreen />
-          </Route>
-          <Route path="/login">
-              <LoginScreen/>
-          </Route>
-          <Route path="/payment" exact>
-            <PaymentScreen/>
-          </Route>
-          <Route path="/history" exact>
-            <HistoryScreen/>
-          </Route>
-    </div>
+          <div className={styles.mainComponent}/>
+          
+            <Switch>
+              <Route path="/" exact>
+                  <MainScreen name={name}/>
+              </Route>
+              <Route path="/order" exact>
+                  <MenuScreen />
+              </Route>
+              <Route path="/login" >
+                  <LoginScreen setname={setname}/>
+              </Route>
+              <Route path="/payment" exact>
+                <PaymentScreen/>
+              </Route>
+              <Route path="/history" exact>
+                <HistoryScreen/>
+              </Route>
+            </Switch>
+      </div>
+    </BookingProvider>
+    </AuthProvider>
+    
   );
 }
 

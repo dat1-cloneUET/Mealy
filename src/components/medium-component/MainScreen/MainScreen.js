@@ -5,9 +5,11 @@ import Recent from '../../atom/Recent/Recent';
 import styles from './MainScreen.module.scss';
 import { motion } from "framer-motion";
 import { useHistory } from "react-router-dom";
+import { useAuth } from '../../context/AuthProvider'
 function MainScreen(props) {
 
     const history = useHistory();
+    // console.log(useAuth().currentUser);
     return (
         <motion.div 
             initial= {{ opacity: 0.4, y: -100}}

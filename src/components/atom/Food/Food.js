@@ -1,7 +1,9 @@
 import React from 'react'
 import styles from './Food.module.scss'
+import { useBooking } from '../../context/BookingProvider';
 
-function Food( { type, name, price } ) {
+function Food( { type, name, price, id } ) {
+    const { addItem }= useBooking();
     var header;
     switch (type){
         case "pizza":
@@ -31,7 +33,7 @@ function Food( { type, name, price } ) {
                 <p className={styles.price}>{`$${price}`}</p>
             </div>
             <div className={styles.footer}>
-            <img src={'image/svg/add.svg'} alt="" className={styles.icon}/>
+            <img src={'image/svg/add.svg'} alt="" className={styles.icon} onClick={() => addItem(id)}/>
             <p className={styles.add}>Add to Cart</p>
             </div>
         </div>

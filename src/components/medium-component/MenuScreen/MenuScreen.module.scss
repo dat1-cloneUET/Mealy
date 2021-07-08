@@ -55,13 +55,18 @@
 }
 .list {
     // width: 70%;
+    // @include b;
     flex-direction: column;
     justify-content: space-between;
     margin-left: 5px;
-
+    @include desktop {
+        height: 90%;
+    }
     @include mt {
         flex-direction: row;   
         align-self: center;
+        margin-left: 0;
+        margin-bottom: 10px;
     }
     @include tablet {
         width: 80%;
@@ -85,7 +90,7 @@
 
 }
 .icon {
-    margin-bottom: 14px;
+    // margin-bottom: 14px;
 }
 .bigIcon{
     height: 90%;
@@ -126,15 +131,15 @@
     }
     @include tablet {
         margin-left: 2%;
-        width: 96%;
-        height: 84%;
+        width: 92%;
+        height: 87%;
         overflow-x: scroll;
     }
     @include mobile {
         // margin-left: 1.5%;
         margin-top: 10px;
         width: 362px;
-        height: 84%;
+        height: 92%;
         align-self: center;
     }
 }
