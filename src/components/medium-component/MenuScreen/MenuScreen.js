@@ -4,6 +4,7 @@ import FoodIcon from '../../atom/FoodIcon/FoodIcon';
 import styles from './MenuScreen.module.scss';
 import { motion } from "framer-motion";
 import { useBooking } from '../../context/BookingProvider'
+import { useLoader } from '../../context/LoaderProvider';
 function MenuScreen() {
     const [active, setActive]= useState("none");
     const handleChooseCategory = (val) => { 
@@ -12,7 +13,9 @@ function MenuScreen() {
         else setActive(val);
     }
     const { listItem }= useBooking();
-
+    const { turnOnLoader, turnOffLoader }= useLoader();
+    if(listItem) turnOffLoader();
+        else turnOnLoader();
     return (
         <motion.div 
             initial= {{ opacity: 0.4, y: -100}}

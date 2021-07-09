@@ -21,6 +21,9 @@ export function BookingProvider({children}) {
             setcart(cart2);
         }
     }
+    const deleteAllItem = () => {
+        setcart({});
+    }
     const updateNumber = (id, num) => {
         if(id in cart) {
             setcart({...cart, [id]: num})
@@ -38,7 +41,8 @@ export function BookingProvider({children}) {
         listItem,
         addItem, 
         deleteItem,
-        updateNumber
+        updateNumber,
+        deleteAllItem
     }
     
     return (

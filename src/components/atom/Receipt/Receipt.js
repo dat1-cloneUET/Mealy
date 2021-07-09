@@ -2,16 +2,15 @@ import React, { useState } from 'react'
 import styles from './Receipt.module.scss';
 import { useBooking } from '../../context/BookingProvider'
 function Receipt(props) {
-    const { type, name, price, number, onDelete, id }= props;
-    const {updateNumber}= useBooking();
-    const [expnum, setExpnum]= useState(number);
+    const { type, name, price, number, onDelete, id, tatic }= props;
+    const { updateNumber }= useBooking();
+
     const handleChangenumber = (num) => {
-        setExpnum(num);
+        if(num <=10)
         updateNumber(id, num);
     }
     const handleblur = () => {
-        if(expnum <= 0){
-            setExpnum(1);
+        if(number <= 0){
             updateNumber(id, 1);
         }
             
@@ -25,13 +24,20 @@ function Receipt(props) {
                     <p className={styles.name}>{name}</p>
                      <p className={styles.price}>{`$${price}`}</p>
                 </div>
-                <input className={styles.number} type="number" placeholder={1} value={expnum} onChange={e => handleChangenumber(e.target.value)} onBlur={handleblur}/>
+                {
+                    !tatic?<input className={styles.number} type="number" placeholder={1} value={number} onChange={e => handleChangenumber(e.target.value)} onBlur={handleblur}/>:
+                    <label className={styles.number} >{number}</label>
+                }
+                
             </div>
             <div className={styles.footer}>
                 <input placeholder={"Leave a Note"} className={styles.note}/>
-                <button className={styles.delete} onClick={onDelete}>
-                    <img src="./image/svg/delete.svg"/>
-                </button>
+                {
+                    !tatic?<button className={styles.delete} onClick={onDelete}>
+                        <img src="./image/svg/delete.svg"/>
+                    </button>:<div/>
+                }
+                
             </div>
         </div>
     )

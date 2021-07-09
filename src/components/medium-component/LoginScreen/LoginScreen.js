@@ -8,6 +8,8 @@ import { useHistory } from 'react-router-dom';
 import { useAuth } from '../../context/AuthProvider'
 import { firestore } from '../../../firebase';
 import { useBooking } from '../../context/BookingProvider'
+import LoaderScreen from '../LoaderScreen/LoaderScreen';
+import { useLoader } from '../../context/LoaderProvider'
 function LoginScreen({setname}) {
     const [signUpScreen, setSignUpScreen]= useState(false);
     const [username, setUsername]= useState("");
@@ -19,12 +21,7 @@ function LoginScreen({setname}) {
     const [spanPassword, setSpanPassword]= useState("");
     const [spanConfirmPassword, setSpanConfirmPassword]= useState("");
     const { signup, login, currentUser, logout, setCurrentUser } = useAuth();
-    // useEffect(async() => {
-    //     await logout();
-    // }, [])
-    // if(currentUser) console.log("dang co user");
-    //     else console.log("ko co");
-    console.log(useBooking());
+    const { turnOnLoader, turnOffLoader }= useLoader();
     const handleSwitch = () =>{
         setSpanConfirmPassword("");
         setSpanUsername("");
@@ -38,12 +35,14 @@ function LoginScreen({setname}) {
         checkvalid("confirmpassword");
         if(spanEmail !== "" || spanPassword !== "" || spanConfirmPassword !== "" || spanUsername !== "") 
             return ;
+        turnOnLoader();
         signup(email, password)
             .then(async res => {
                 await firestore.collection("Users").doc(res.user.uid).set({
                     id: res.user.uid,
                     name: username
                 });
+                turnOffLoader();
                 setSignUpScreen(false);
             })
             .catch(err => {setSpanEmail("Email already in use")})
@@ -51,15 +50,17 @@ function LoginScreen({setname}) {
         
     }
     const handleLogin = async() => {
-        console.log("Signin");
+        turnOnLoader();
         login(email, password)
             .then(async (res) => {
                 setCurrentUser(res);
                 await firestore.collection("Users").doc(res.user.uid).get()
                     .then(res => setname(res.data().name));
+                    turnOffLoader();
                     history.push("/");
             })
             .catch(err => {
+                turnOffLoader();
                 if(err.code === "auth/user-not-found"){
                     setSpanEmail("Email not found");
                     setSpanPassword("");

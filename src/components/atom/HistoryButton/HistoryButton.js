@@ -3,11 +3,13 @@ import React from 'react'
 import styles from './HistoryButton.module.scss';
 
 function HistoryButton(props) {
-    const { timestamp, active }=  props;
-    let time=new Date(timestamp);
-    let hour= time.getHours(), minute= time.getMinutes(), year= time.getFullYear(), month= time.getMonth(), day= time.getDay();
+    const { time, active, click }=  props;
+    // const {seconds, nanoseconds}= time;
+    let timer=new Date(time);
+    // console.log(time);
+    let hour= timer.getHours(), minute= timer.getMinutes(), year= timer.getFullYear(), month= timer.getMonth(), day= timer.getDay();
     return (
-        <div className={styles.mainComponent}>
+        <div className={styles.mainComponent} onClick={click}>
             {
                 hour > 12 ?
                     `${hour - 12}:${minute} PM - ${day}/${month}/${year}`:

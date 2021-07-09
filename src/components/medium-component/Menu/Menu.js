@@ -11,16 +11,23 @@ import {
     Link
   } from "react-router-dom";
 import SingleSection from '../../atom/SingleSection/SingleSection';
+import { useBooking } from '../../context/BookingProvider';
+import { useLoader } from '../../context/LoaderProvider';
+
 function Menu({name, setname}) {
     let history = useHistory();
     const [openCategory, setOpenCategory]= useState(false);
     const { curentUser, logout, setCurrentUser }= useAuth();
+    const { cart }= useBooking();
+    const {turnOnLoader, turnOffLoader}= useLoader();
     async function handleLogout(){
-        // console.log("logout");
+        turnOnLoader();
         try {
+            
             logout().then(res => {
                 setCurrentUser(undefined);
                 setname(undefined);
+                turnOffLoader();
             history.push("/");
             });
 
@@ -28,6 +35,15 @@ function Menu({name, setname}) {
         } catch (error) {
             console.log(error)
         }
+    }
+    const getTotalNumber = () => {
+        let sum=0;
+        for(let i in cart) {
+            sum += parseInt(cart[i]);
+        }
+        if(!isNaN(sum))
+        return sum;
+        else return ;
     }
     return (
         <div className={styles.mainComponent} >
@@ -89,7 +105,11 @@ function Menu({name, setname}) {
                 <img src={'/image/svg/in.svg'} alt=""/>
             </div>
             <Link to="/payment" className={styles.icecream}>
-                <img src={'/image/svg/icecream.svg'} alt="" />
+                <div>
+                    <p>{getTotalNumber()}</p>
+                    <img src={'/image/svg/icecream.svg'} alt="" />
+                </div>
+                
             </Link>
             <div className={styles.button}>
             {

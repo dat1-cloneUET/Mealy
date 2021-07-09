@@ -95,7 +95,7 @@
 }
 .payment_input {
     width: 96%;
-    height: 48px;
+    height: 46px;
     padding-left: 14px;
     font-family: $font-1;
     font-size: 14px;
@@ -109,6 +109,12 @@
     @include mobile {
         height: 43.2px;
         margin-bottom: 13.5px;
+    }
+}
+.payment_input_warning {
+    @extend .payment_input;
+    &::placeholder {
+        color: #db3333
     }
 }
 .button_cancel {
@@ -288,6 +294,13 @@
     width: 24px;
     height: 24px;
     cursor: pointer;
+}
+.backk {
+    @extend .back;
+    display: none;
+    @include mt {
+        display: block;
+    }
 }
 .next {
     @extend .back;

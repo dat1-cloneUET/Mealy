@@ -21,17 +21,23 @@ import {firestore} from './firebase';
 import { useAuth } from './components/context/AuthProvider';
 import { useBooking } from './components/context/BookingProvider'
 import { BookingProvider } from './components/context/BookingProvider'
+import PrivateRoute from './components/atom/PrivateRoute/PrivateRoute';
+import LoaderScreen from './components/medium-component/LoaderScreen/LoaderScreen';
+import {useLoader} from './components/context/LoaderProvider';
 function App() {
   const [name, setname]= useState();
+  const {isLoading}= useLoader();
   return (
     <AuthProvider>
     <BookingProvider>
       <div className={styles.App}>
           <Menu name={name} setname={setname} />
           <Poster/>
-
+          {
+            isLoading?<LoaderScreen/>:<div/>
+          }
           <div className={styles.mainComponent}/>
-          
+
             <Switch>
               <Route path="/" exact>
                   <MainScreen name={name}/>
@@ -39,15 +45,12 @@ function App() {
               <Route path="/order" exact>
                   <MenuScreen />
               </Route>
-              <Route path="/login" >
+              <Route path="/login" exact>
                   <LoginScreen setname={setname}/>
               </Route>
-              <Route path="/payment" exact>
-                <PaymentScreen/>
-              </Route>
-              <Route path="/history" exact>
-                <HistoryScreen/>
-              </Route>
+              <Route path="/payment" exact component={PaymentScreen}/>
+
+              <PrivateRoute path="/history" exact component={HistoryScreen}/>
             </Switch>
       </div>
     </BookingProvider>

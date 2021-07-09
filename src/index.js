@@ -4,10 +4,12 @@ import App from './App';
 import {
   BrowserRouter as Router,
 } from "react-router-dom";
-
+import {LoaderProvider} from './components/context/LoaderProvider';
 ReactDOM.render(
     <Router>
-      <App />
+      <LoaderProvider>
+        <App />
+      </LoaderProvider>
     </Router>
   ,document.getElementById('root')
 );
