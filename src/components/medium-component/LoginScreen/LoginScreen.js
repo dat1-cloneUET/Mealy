@@ -45,7 +45,10 @@ function LoginScreen({setname}) {
                 turnOffLoader();
                 setSignUpScreen(false);
             })
-            .catch(err => {setSpanEmail("Email already in use")})
+            .catch(err => {
+            setSpanEmail("Email already in use")
+            turnOffLoader();
+        })
   
         
     }
@@ -70,6 +73,7 @@ function LoginScreen({setname}) {
                 setSpanEmail("");
                 // console.log(errc)
             });
+            turnOffLoader();
     
     }
 
@@ -180,7 +184,7 @@ function LoginScreen({setname}) {
                             {signUpScreen?"Already have an account, ":"Don't have an account, "}
                         </span>
                         <span className={styles.signUp} onClick={()=>handleSwitch()}>
-                            {signUpScreen?"Sign Up":"Sign In"}
+                            {signUpScreen?"Sign In":"Sign Up"}
                         </span> now.
                     </p>
                 </div>
