@@ -3,7 +3,7 @@ import Food from '../../atom/Food/Food';
 import FoodIcon from '../../atom/FoodIcon/FoodIcon';
 import styles from './MenuScreen.module.scss';
 import { motion } from "framer-motion";
-import { useBooking } from '../../context/BookingProvider'
+// import { useBooking } from '../../context/BookingProvider'
 import { useLoader } from '../../context/LoaderProvider';
 function MenuScreen() {
     const [active, setActive]= useState("none");
@@ -12,10 +12,8 @@ function MenuScreen() {
             setActive("none");
         else setActive(val);
     }
-    const { listItem }= useBooking();
+    // const { listItem }= useBooking();
     const { turnOnLoader, turnOffLoader }= useLoader();
-    if(listItem) turnOffLoader();
-        else turnOnLoader();
     return (
         <motion.div 
             initial= {{ opacity: 0.4, y: -100}}
@@ -33,16 +31,19 @@ function MenuScreen() {
                         <FoodIcon type={'desert'} active={active === "desert"} handleChooseCategory={() => handleChooseCategory("desert")}/>
                     </div>
                     <div className={styles.listFood}>
+                        <Food type={"burger"}
+                        name="Fuck"
+                        price={"1.11"}/>
                     {
-                        listItem?listItem.filter(item => {
-                            if(active === "none") return item;
-                            else return item.type === active}).map((item) => 
-                            (<Food  key={item.id} 
-                                    type={item.type}
-                                    name={item.name}
-                                    price={item.price}
-                                    id={item.id}
-                                    />)):<div/>
+                        // listItem?listItem.filter(item => {
+                        //     if(active === "none") return item;
+                        //     else return item.type === active}).map((item) => 
+                        //     (<Food  key={item.id} 
+                        //             type={item.type}
+                        //             name={item.name}
+                        //             price={item.price}
+                        //             id={item.id}
+                        //             />)):<div/>
                     }
                      
        

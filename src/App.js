@@ -16,11 +16,8 @@ import {
 import { useState, useContext } from 'react';
 // import { Navigate } from './Contexts';
 import HistoryScreen from './components/medium-component/HistoryScreen/HistoryScreen';
-import { AuthProvider } from './components/context/AuthProvider';
-import {firestore} from './firebase';
-import { useAuth } from './components/context/AuthProvider';
-import { useBooking } from './components/context/BookingProvider'
-import { BookingProvider } from './components/context/BookingProvider'
+// import { AuthProvider } from './components/context/AuthProvider';
+// import { BookingProvider } from './components/context/BookingProvider'
 import PrivateRoute from './components/atom/PrivateRoute/PrivateRoute';
 import LoaderScreen from './components/medium-component/LoaderScreen/LoaderScreen';
 import {useLoader} from './components/context/LoaderProvider';
@@ -28,8 +25,8 @@ function App() {
   const [name, setname]= useState();
   const {isLoading}= useLoader();
   return (
-    <AuthProvider>
-    <BookingProvider>
+    // <AuthProvider>
+    // <BookingProvider>
       <div className={styles.App}>
           <Menu name={name} setname={setname} />
           <Poster/>
@@ -53,8 +50,8 @@ function App() {
               <PrivateRoute path="/history" exact component={HistoryScreen}/>
             </Switch>
       </div>
-    </BookingProvider>
-    </AuthProvider>
+    // </BookingProvider>
+    // </AuthProvider>
     
   );
 }

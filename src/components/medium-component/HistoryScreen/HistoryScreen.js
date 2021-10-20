@@ -5,19 +5,19 @@ import InfoPair from '../../atom/InfoPair/InfoPair';
 import Receipt from '../../atom/Receipt/Receipt';
 import { motion } from 'framer-motion';
 import { useHistory } from 'react-router-dom';
-import { firestore } from '../../../firebase';
-import { useAuth } from '../../context/AuthProvider';
-import { useBooking } from '../../context/BookingProvider';
+// import { firestore } from '../../../firebase';
+// import { useAuth } from '../../context/AuthProvider';
+// import { useBooking } from '../../context/BookingProvider';
 function HistoryScreen() {
     const history= useHistory()
     const [switchScreen, setSwitchScreen]= useState(false);
     const [info, setInfo]= useState("flex");
     const [his, setHis]= useState("flex");
-    const {currentUser}= useAuth();
     const  [listHistory, setListHistory]= useState();
     const [current, setCurrent]= useState();
     const [currentobj, setCurrentObj]= useState();
-    const { listItem }= useBooking();
+    // const { listItem }= useBooking();
+    // const {currentUser}= useAuth();
     const [total, setTotal]= useState(0);
     useEffect(() => {
         window.addEventListener('resize', () => {
@@ -46,23 +46,23 @@ function HistoryScreen() {
             setInfo("none");
         }
     },[]);
-    useEffect(() => {
-        firestore.collection("History").where("userId", "==", currentUser.user.uid).get()
-            .then(res =>{
-                let exp=[];
-                res.forEach(item => {
-                    exp.push(item.data())
-                    console.log(item.data().time)
-                });
-                setListHistory(exp);
-            });
-    },[]);
-    useEffect(() => {
-        if(current && listHistory) {
-            let obj= listHistory.find(item => item.time.seconds *1000 +item.time.nanoseconds /1000000 == current);
-        setCurrentObj(obj);
-        }
-    },[current]);
+    // useEffect(() => {
+    //     firestore.collection("History").where("userId", "==", currentUser.user.uid).get()
+    //         .then(res =>{
+    //             let exp=[];
+    //             res.forEach(item => {
+    //                 exp.push(item.data())
+    //                 console.log(item.data().time)
+    //             });
+    //             setListHistory(exp);
+    //         });
+    // },[]);
+    // useEffect(() => {
+    //     if(current && listHistory) {
+    //         let obj= listHistory.find(item => item.time.seconds *1000 +item.time.nanoseconds /1000000 == current);
+    //     setCurrentObj(obj);
+    //     }
+    // },[current]);
     const handleClick =(time) => {
         const width= window.innerWidth;
         if(width < 1024)  
@@ -81,31 +81,31 @@ const handleSwitch = () =>{
         }
 }
 const renderCart = () => {
-    let cart2=[];
+    // let cart2=[];
     
-    for (let [key, value] of Object.entries(currentobj.order)) {
-        let obj= listItem.find(item => item.id == key);
-        cart2.push( <Receipt key={obj.id} type={obj.type} 
-                            name={obj.name} number={value} 
-                            price={obj.price}
-                            id={key}
-                            tatic={true}
-                            />)
-      }
+    // for (let [key, value] of Object.entries(currentobj.order)) {
+    //     let obj= listItem.find(item => item.id == key);
+    //     cart2.push( <Receipt key={obj.id} type={obj.type} 
+    //                         name={obj.name} number={value} 
+    //                         price={obj.price}
+    //                         id={key}
+    //                         tatic={true}
+    //                         />)
+    //   }
     // setTotal(price);
-    return cart2;
+    // return cart2;
 }
-useEffect(() => {
-    if(currentobj) {
-        let price=0;
-        for (let [key, value] of Object.entries(currentobj.order)) {
-            let obj= listItem.find(item => item.id == key);
-            price= price + obj.price * parseInt(value);
-            // console.log(price);
-        }
-        setTotal(price);
-    }
-},[currentobj])
+// useEffect(() => {
+//     if(currentobj) {
+//         let price=0;
+//         for (let [key, value] of Object.entries(currentobj.order)) {
+//             let obj= listItem.find(item => item.id == key);
+//             price= price + obj.price * parseInt(value);
+//             // console.log(price);
+//         }
+//         setTotal(price);
+//     }
+// },[currentobj])
     return (
         <motion.div 
             initial= {{ opacity: 0.4, y: -30}}

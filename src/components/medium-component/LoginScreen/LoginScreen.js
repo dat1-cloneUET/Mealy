@@ -5,9 +5,9 @@ import styles from './LoginScreen.module.scss'
 import stylesMainScreen from '../MainScreen/MainScreen.module.scss';
 import { LayoutGroupContext, motion } from 'framer-motion';
 import { useHistory } from 'react-router-dom';
-import { useAuth } from '../../context/AuthProvider'
-import { firestore } from '../../../firebase';
-import { useBooking } from '../../context/BookingProvider'
+// import { useAuth } from '../../context/AuthProvider'
+// import { firestore } from '../../../firebase';
+// import { useBooking } from '../../context/BookingProvider'
 import LoaderScreen from '../LoaderScreen/LoaderScreen';
 import { useLoader } from '../../context/LoaderProvider'
 function LoginScreen({setname}) {
@@ -20,7 +20,7 @@ function LoginScreen({setname}) {
     const [spanUsername, setSpanUsername]= useState("");
     const [spanPassword, setSpanPassword]= useState("");
     const [spanConfirmPassword, setSpanConfirmPassword]= useState("");
-    const { signup, login, currentUser, logout, setCurrentUser } = useAuth();
+    // const { signup, login, currentUser, logout, setCurrentUser } = useAuth();
     const { turnOnLoader, turnOffLoader }= useLoader();
     const handleSwitch = () =>{
         setSpanConfirmPassword("");
@@ -35,45 +35,45 @@ function LoginScreen({setname}) {
         checkvalid("confirmpassword");
         if(spanEmail !== "" || spanPassword !== "" || spanConfirmPassword !== "" || spanUsername !== "") 
             return ;
-        turnOnLoader();
-        signup(email, password)
-            .then(async res => {
-                await firestore.collection("Users").doc(res.user.uid).set({
-                    id: res.user.uid,
-                    name: username
-                });
-                turnOffLoader();
-                setSignUpScreen(false);
-            })
-            .catch(err => {
-            setSpanEmail("Email already in use")
-            turnOffLoader();
-        })
+        // turnOnLoader();
+        // signup(email, password)
+        //     .then(async res => {
+        //         await firestore.collection("Users").doc(res.user.uid).set({
+        //             id: res.user.uid,
+        //             name: username
+        //         });
+        //         turnOffLoader();
+        //         setSignUpScreen(false);
+        //     })
+        //     .catch(err => {
+        //     setSpanEmail("Email already in use")
+        //     turnOffLoader();
+        // })
   
         
     }
     const handleLogin = async() => {
-        turnOnLoader();
-        login(email, password)
-            .then(async (res) => {
-                setCurrentUser(res);
-                await firestore.collection("Users").doc(res.user.uid).get()
-                    .then(res => setname(res.data().name));
-                    turnOffLoader();
-                    history.push("/");
-            })
-            .catch(err => {
-                turnOffLoader();
-                if(err.code === "auth/user-not-found"){
-                    setSpanEmail("Email not found");
-                    setSpanPassword("");
-                    return;
-                }
-                setSpanPassword("Wrong password");
-                setSpanEmail("");
-                // console.log(errc)
-            });
-            turnOffLoader();
+        // turnOnLoader();
+        // login(email, password)
+        //     .then(async (res) => {
+        //         setCurrentUser(res);
+        //         await firestore.collection("Users").doc(res.user.uid).get()
+        //             .then(res => setname(res.data().name));
+        //             turnOffLoader();
+        //             history.push("/");
+        //     })
+        //     .catch(err => {
+        //         turnOffLoader();
+        //         if(err.code === "auth/user-not-found"){
+        //             setSpanEmail("Email not found");
+        //             setSpanPassword("");
+        //             return;
+        //         }
+        //         setSpanPassword("Wrong password");
+        //         setSpanEmail("");
+        //         // console.log(errc)
+        //     });
+        //     turnOffLoader();
     
     }
 

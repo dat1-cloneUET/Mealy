@@ -1,8 +1,8 @@
 import React, {useRef, useState, useEffect} from 'react'
 import styles from './Menu.module.scss';
 import CusButton from '../../atom/CusButton/CusButton';
-import { useAuth } from '../../context/AuthProvider'
-import { firestore } from '../../../firebase';
+// import { useAuth } from '../../context/AuthProvider'
+// import { firestore } from '../../../firebase';
 import OutsideClickHandler from 'react-outside-click-handler';
 import {
     BrowserRouter as Router,
@@ -11,39 +11,39 @@ import {
     Link
   } from "react-router-dom";
 import SingleSection from '../../atom/SingleSection/SingleSection';
-import { useBooking } from '../../context/BookingProvider';
+// import { useBooking } from '../../context/BookingProvider';
 import { useLoader } from '../../context/LoaderProvider';
 
 function Menu({name, setname}) {
     let history = useHistory();
     const [openCategory, setOpenCategory]= useState(false);
-    const { curentUser, logout, setCurrentUser }= useAuth();
-    const { cart }= useBooking();
+    // const { curentUser, logout, setCurrentUser }= useAuth();
+    // const { cart }= useBooking();
     const {turnOnLoader, turnOffLoader}= useLoader();
     async function handleLogout(){
-        turnOnLoader();
-        try {
+        // turnOnLoader();
+        // try {
             
-            logout().then(res => {
-                setCurrentUser(undefined);
-                setname(undefined);
-                turnOffLoader();
-            history.push("/");
-            });
+        //     logout().then(res => {
+        //         setCurrentUser(undefined);
+        //         setname(undefined);
+        //         turnOffLoader();
+        //     history.push("/");
+        //     });
 
 
-        } catch (error) {
-            console.log(error)
-        }
+        // } catch (error) {
+        //     console.log(error)
+        // }
     }
     const getTotalNumber = () => {
-        let sum=0;
-        for(let i in cart) {
-            sum += parseInt(cart[i]);
-        }
-        if(!isNaN(sum))
-        return sum;
-        else return ;
+        // let sum=0;
+        // for(let i in cart) {
+        //     sum += parseInt(cart[i]);
+        // }
+        // if(!isNaN(sum))
+        // return sum;
+        // else return ;
     }
     return (
         <div className={styles.mainComponent} >

@@ -5,10 +5,10 @@ import { motion } from 'framer-motion';
 import InfoPair from '../../atom/InfoPair/InfoPair';
 import Receipt from '../../atom/Receipt/Receipt';
 import { useHistory } from 'react-router';
-import { useBooking } from '../../context/BookingProvider'
-import { useAuth } from '../../context/AuthProvider';
-import { firestore } from '../../../firebase';
-import firebase from '../../../firebase';
+// import { useBooking } from '../../context/BookingProvider'
+// import { useAuth } from '../../context/AuthProvider';
+// import { firestore } from '../../../firebase';
+// import firebase from '../../../firebase';
 import { useLoader } from '../../context/LoaderProvider';
 function PaymenScreen() {
     const [method, setMethod]= useState([true, false, false]);
@@ -22,8 +22,8 @@ function PaymenScreen() {
     const [info, setInfo]= useState("flex");
     const [pay, setPay]= useState(true);
     const [list, setList]= useState();
-    const { listItem, cart, deleteItem, deleteAllItem } = useBooking();
-    const { currentUser }= useAuth();
+    // const { listItem, cart, deleteItem, deleteAllItem } = useBooking();
+    // const { currentUser }= useAuth();
     const { turnOnLoader, turnOffLoader }= useLoader();
     const [receivename, setReceivename]= useState("");
     const [receiveaddress, setReceiveaddress]= useState("");
@@ -64,63 +64,63 @@ function PaymenScreen() {
         setPay(!pay);
     }
     const renderCart = () => {
-        let cart2=[];
+        // let cart2=[];
         
-        for (let [key, value] of Object.entries(cart)) {
-            let obj= listItem.find(item => item.id == key);
-            cart2.push( <Receipt key={obj.id} type={obj.type} 
-                                name={obj.name} number={value} 
-                                price={obj.price} onDelete={() => deleteItem(key)}
-                                id={key}
-                                tatic={false}
-                                />)
-          }
-        // setTotal(price);
-        return cart2;
+        // for (let [key, value] of Object.entries(cart)) {
+        //     let obj= listItem.find(item => item.id == key);
+        //     cart2.push( <Receipt key={obj.id} type={obj.type} 
+        //                         name={obj.name} number={value} 
+        //                         price={obj.price} onDelete={() => deleteItem(key)}
+        //                         id={key}
+        //                         tatic={false}
+        //                         />)
+        //   }
+        // // setTotal(price);
+        // return cart2;
     }
-    useEffect(() => {
-        let price=0;
-        for (let [key, value] of Object.entries(cart)) {
-            let obj= listItem.find(item => item.id == key);
-            price= price + obj.price * parseInt(value);
-            // console.log(price);
-          }
-          setTotal(price);
-    },[cart])
+    // useEffect(() => {
+    //     let price=0;
+    //     for (let [key, value] of Object.entries(cart)) {
+    //         let obj= listItem.find(item => item.id == key);
+    //         price= price + obj.price * parseInt(value);
+    //         // console.log(price);
+    //       }
+    //       setTotal(price);
+    // },[cart])
 
     const cancelOrder = () => {
         setReceiveaddress("");
         setReceivename("");
         setReceivephone("");
-        deleteAllItem();
+        // deleteAllItem();
         history.push("/");
     }
     const confirmOrder = async () =>{
-        if(!currentUser ) history.push("/login");
-        else
-            if(Object.keys(cart).length === 0) history.push("/order");
-        else if(receivename ==="" || receiveaddress ==="" || receivephone ===""){
-            if(receivename ==="") setReceivenameRef("x");
-            if(receiveaddress ==="") setReceiveaddressRef("x");
-            if(receivephone ==="") setReceivephoneRef("x");
-            return ;
-        }
+        // if(!currentUser ) history.push("/login");
+        // else
+        //     if(Object.keys(cart).length === 0) history.push("/order");
+        // else if(receivename ==="" || receiveaddress ==="" || receivephone ===""){
+        //     if(receivename ==="") setReceivenameRef("x");
+        //     if(receiveaddress ==="") setReceiveaddressRef("x");
+        //     if(receivephone ==="") setReceivephoneRef("x");
+        //     return ;
+        // }
         
-        else {
-            turnOnLoader();
-            firestore.collection("History").add({
-                userId: currentUser.user.uid,
-                order: cart,
-                time: firebase.firestore.Timestamp.now(),
-                receivename,
-                receiveaddress,
-                receivephone
-            }).then(() =>{
-                turnOffLoader();
-                cancelOrder();
-            }).catch(err => console.log(err));
-        }
-   
+        // else {
+        //     turnOnLoader();
+        //     firestore.collection("History").add({
+        //         userId: currentUser.user.uid,
+        //         order: cart,
+        //         time: firebase.firestore.Timestamp.now(),
+        //         receivename,
+        //         receiveaddress,
+        //         receivephone
+        //     }).then(() =>{
+        //         turnOffLoader();
+        //         cancelOrder();
+        //     }).catch(err => console.log(err));
+        // }
+
     }
     // const checkvalid= (ref)=>{
     //     if(ref.current === "")
