@@ -20,6 +20,7 @@
     @extend .mainComponent;
     border: 2px solid rgb(165, 165, 165);
     transition: 0.6s;
+    cursor: pointer;
 }
 .img {
     width: 24px;

@@ -1,14 +1,19 @@
-import React, { useContext } from "react";
-import Food from "../../atom/Food/Food";
-import FoodIcon from "../../atom/FoodIcon/FoodIcon";
+import React, { useEffect } from "react";
 import Recent from "../../atom/Recent/Recent";
 import styles from "./MainScreen.module.scss";
 import { motion } from "framer-motion";
 import { useHistory } from "react-router-dom";
-// import { useAuth } from '../../context/AuthProvider'
+import { useAuth } from "../../context/AuthProvider";
 function MainScreen(props) {
   const history = useHistory();
-  // console.log(useAuth().currentUser);
+  const { currentUser, verifyToken } = useAuth();
+  useEffect(() => {
+    verifyToken().then((res) => {
+      if(res.data.message) 
+        history.push('/login');
+        
+    });
+  }, []);
   return (
     <motion.div
       initial={{ opacity: 0.4, y: -100 }}

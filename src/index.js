@@ -1,16 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import {
-  BrowserRouter as Router,
-} from "react-router-dom";
-import {LoaderProvider} from './components/context/LoaderProvider';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import { BrowserRouter as Router } from "react-router-dom";
+import { LoaderProvider } from "./components/context/LoaderProvider";
+import { AuthProvider } from "./components/context/AuthProvider";
 ReactDOM.render(
-    <Router>
-      <LoaderProvider>
+  <Router>
+    <LoaderProvider>
+      <AuthProvider>
         <App />
-      </LoaderProvider>
-    </Router>
-  ,document.getElementById('root')
+      </AuthProvider>
+    </LoaderProvider>
+  </Router>,
+  document.getElementById("root")
 );
-

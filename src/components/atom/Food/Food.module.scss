@@ -44,6 +44,10 @@
         margin-right: 10px;
         margin-bottom: 10px;
     }
+    @include desktop {
+        width: 163.625px;
+        // height: 215.05px;
+    }
 }
 .header_burger {
     @include header_color(#94A4DF);

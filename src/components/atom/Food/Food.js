@@ -31,7 +31,7 @@ function Food({ type, name, price, id }) {
     case "desert":
       header = styles.header_fries;
       break;
-    case "chicken":
+    default:
       header = styles.header_chicken;
       break;
   }
