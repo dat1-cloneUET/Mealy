@@ -108,7 +108,7 @@ function PaymenScreen(props) {
     setPay(!pay);
   };
   const renderCart = () => {
-    if (list.length === 0) return;
+    if (list.length === 0 || !cart) return;
     let cart2 = [];
     cart.forEach((item) => {
       let obj = list.find((i) => i.id === item.id);
@@ -128,7 +128,7 @@ function PaymenScreen(props) {
     return cart2;
   };
   useEffect(() => {
-    if (list.length === 0) return;
+    if (list.length === 0 || cart) return;
     let price = 0;
     cart.forEach((item) => {
       let obj = list.find((i) => i.id === item.id);

@@ -30,7 +30,7 @@ function Menu({ name, setname }) {
       setIsLogin(res.data.data.username);
     })
   },[currentUser])
-  const getTotalNumber = () => cart.reduce((pre, cur) => pre + cur.number, 0);
+  const getTotalNumber = () => cart?cart.reduce((pre, cur) => pre + cur.number, 0):0;
 
   return (
     <div className={styles.mainComponent}>
