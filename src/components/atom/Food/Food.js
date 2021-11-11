@@ -1,19 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Food.module.scss";
 // import { useBooking } from '../../context/BookingProvider';
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import HistoryButton from "../HistoryButton/HistoryButton";
+import { getComment, sendComment, getAllFood } from "../../../GraphQL/query";
+import { useAuth } from "../../context/AuthProvider";
+import moment from "moment";
+import { useHistory } from "react-router-dom";
+import { useLoader } from "../../context/LoaderProvider";
+import { useBooking }  from '../../context/BookingProvider'
 function Food({ type, name, price, id }) {
-  // const { addItem }= useBooking();
+  const { addItem }= useBooking();
   const [open, setOpen] = React.useState(false);
+  const [comments, setComments] = useState([]);
   const handleClose = () => {
     setOpen(false);
   };
   const handleOpen = () => {
     setOpen(true);
   };
-  const addItem = () => {};
+  // const addItem = () => {
+  //   addItem(id);
+  // };
   var header;
   switch (type) {
     case "pizza":
@@ -35,6 +44,13 @@ function Food({ type, name, price, id }) {
       header = styles.header_chicken;
       break;
   }
+  useEffect(() => {
+    getComment(id).then((res) => {
+      const { data, message } = res.data.comment;
+      if (message === "success") setComments(data);
+
+    });
+  }, []);
   return (
     <div className={styles.mainComponent}>
       <div className={header}>
@@ -44,7 +60,7 @@ function Food({ type, name, price, id }) {
           className={styles.img}
         />
         <p className={styles.name}>{name}</p>
-        <p className={styles.price}>{`$${price}`}</p>
+        <p className={styles.price}>{`${new Intl.NumberFormat().format(price)}đ`}</p>
       </div>
       <div className={styles.footer}>
         <img
@@ -60,7 +76,13 @@ function Food({ type, name, price, id }) {
           onClick={handleOpen}
         />
       </div>
-      <CommentDialog open={open} handleClose={handleClose} />
+      <CommentDialog
+        open={open}
+        handleClose={handleClose}
+        data={comments}
+        id={id}
+        setData={setComments}
+      />
     </div>
   );
 }
@@ -68,8 +90,26 @@ function Food({ type, name, price, id }) {
 export default Food;
 
 function CommentDialog(props) {
-  const { handleClose, open } = props;
-
+  const { handleClose, open, data, id, setData } = props;
+  const [write, setWrite] = useState("");
+  const { currentUser } = useAuth();
+  const history = useHistory();
+  const { turnOnLoader, turnOffLoader } = useLoader();
+  const handleSend = () => {
+    if (!currentUser) history.push("/login");
+    else {
+      turnOnLoader();
+      sendComment(id, write, currentUser)
+        .then((res) => {
+          if (res.data.addComment.message === "success"){
+            // console.log([res.data.addComment.data[0],...data])
+          setData([res.data.addComment.data[0],...data]);
+          }
+          
+        })
+        .finally(() => turnOffLoader());
+    }
+  };
   return (
     <Dialog
       onClose={handleClose}
@@ -78,26 +118,36 @@ function CommentDialog(props) {
     >
       <DialogTitle className={styles.dialogTitle}>Comment</DialogTitle>
       <div className={styles.comment}>
-        <textarea placeholder={"Add your comment here"} />
-        <button>Send</button>
+        <textarea
+          placeholder={"Add your comment here"}
+          value={write}
+          onChange={(e) => setWrite(e.target.value)}
+        />
+        <button onClick={handleSend}>Send</button>
         <div className={styles.listComment}>
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
+          {data.map((item, key) => (
+            <Comment
+              key={item.id}
+              username={item.username}
+              content={item.content}
+              time={item.time}
+            />
+          ))}
         </div>
       </div>
     </Dialog>
   );
 }
-function Comment(props) {
+function Comment({ username, content, time }) {
   return (
     <div className={styles.singleComment}>
       <div>
-        <p className={styles.name1}>Name</p>
-        <p className={styles.time}>2PM 20-10-2021</p>
+        <p className={styles.name1}>{username}</p>
+        <p className={styles.time}>
+          {moment(parseInt(time)).format("LT DD-MM-YYYY")}
+        </p>
       </div>
-      <p className={styles.com}>Comment</p>
+      <p className={styles.com}>{content}</p>
     </div>
   );
 }

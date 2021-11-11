@@ -1,3 +1,3 @@
-const api="http://localhost:3000";
+const api="https://server-mealy.herokuapp.com";
 
 export default api;

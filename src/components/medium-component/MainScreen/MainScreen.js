@@ -6,14 +6,6 @@ import { useHistory } from "react-router-dom";
 import { useAuth } from "../../context/AuthProvider";
 function MainScreen(props) {
   const history = useHistory();
-  const { currentUser, verifyToken } = useAuth();
-  useEffect(() => {
-    verifyToken().then((res) => {
-      if(res.data.message) 
-        history.push('/login');
-        
-    });
-  }, []);
   return (
     <motion.div
       initial={{ opacity: 0.4, y: -100 }}

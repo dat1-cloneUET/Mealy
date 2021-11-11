@@ -7,7 +7,7 @@ function Receipt(props) {
 
     const handleChangenumber = (num) => {
         if(num <=10)
-        updateNumber(id, num);
+        updateNumber(id, parseInt(num));
     }
     const handleblur = () => {
         if(number <= 0){
@@ -22,7 +22,7 @@ function Receipt(props) {
                 <img className={styles.img} src={`image/svg/foodIcon/${type}-active.svg`} alt=""/>
                 <div className={styles.box}>
                     <p className={styles.name}>{name}</p>
-                     <p className={styles.price}>{`$${price}`}</p>
+                     <p className={styles.price}>{`${new Intl.NumberFormat().format(price)}đ`}</p>
                 </div>
                 {
                     !tatic?<input className={styles.number} type="number" placeholder={1} value={number} onChange={e => handleChangenumber(e.target.value)} onBlur={handleblur}/>:

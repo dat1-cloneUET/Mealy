@@ -11,7 +11,6 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
-  const [loading, setLoading] = useState(true);
 
   function signup(email, password, username = "fuck") {
     return axios.post(url.concat("/registerWithEmailAndPassword"), {
@@ -28,8 +27,8 @@ export function AuthProvider({ children }) {
     });
   }
 
-  function verifyToken(token) {
-    return axios.get(url.concat('/verifyToken'), {
+  function getUserInfo() {
+    return axios.get(url.concat('/getUserInfo'), {
       headers: {
         token: currentUser,
       }
@@ -40,9 +39,9 @@ export function AuthProvider({ children }) {
       email
     })
   }
-  // function logout() {
-  //   return auth.signOut();
-  // }
+  function logout() {
+    setCurrentUser(null)
+  }
 
   function genMomoUrl(money= 10000) {
     return axios.get(url.concat(`/genMomoUrl?money=${money}`))
@@ -61,13 +60,15 @@ export function AuthProvider({ children }) {
     setCurrentUser(token);
   }, [])
 
+
+
   const value = {
     currentUser,
     setCurrentUser,
     login,
     signup,
-    verifyToken,
-    // logout,
+    getUserInfo,
+    logout,
     resetPassword,
     genMomoUrl
     // updatePassword,

@@ -16,15 +16,13 @@ function MenuScreen() {
   };
   // const { listItem }= useBooking();
   useEffect(() => {
-    turnOnLoader();
-    getAllFood
+    // turnOnLoader();
+    getAllFood()
       .then((res) => {
         const { message, data } = res.data.food;
-        console.log(data);
         if (message === "success") setListFood(data);
       })
-      .catch((err) => console.log(err))
-      .finally(() => turnOffLoader());
+      // .finally(() => turnOffLoader());
   }, []);
   return (
     <motion.div
@@ -73,6 +71,7 @@ function MenuScreen() {
               else return item.type === active
             }).map((item) => (
               <Food
+                id={item.id}
                 type={item.type}
                 name={item.food_name}
                 price={item.price}

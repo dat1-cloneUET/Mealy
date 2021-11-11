@@ -5,13 +5,14 @@ import { motion } from "framer-motion";
 import InfoPair from "../../atom/InfoPair/InfoPair";
 import Receipt from "../../atom/Receipt/Receipt";
 import { useHistory } from "react-router";
-// import { useBooking } from '../../context/BookingProvider'
+import { useBooking } from "../../context/BookingProvider";
 import { useAuth } from "../../context/AuthProvider";
-// import { firestore } from '../../../firebase';
-// import firebase from '../../../firebase';
 import { useLoader } from "../../context/LoaderProvider";
 import axios from "axios";
-function PaymenScreen() {
+import { getAllFood } from "../../../GraphQL/query";
+import url from "../../../BE.config";
+
+function PaymenScreen(props) {
   const [method, setMethod] = useState([true, false, false]);
   const handleChangeMethod = (val) => {
     let exp = [false, false, false];
@@ -19,16 +20,21 @@ function PaymenScreen() {
     setMethod(exp);
   };
   const history = useHistory();
-  const [switchScreen, setSwitchScreen] = useState(false);
   const [info, setInfo] = useState("flex");
   const [pay, setPay] = useState(true);
-  const [list, setList] = useState();
-  // const { listItem, cart, deleteItem, deleteAllItem } = useBooking();
+  const [list, setList] = useState([]);
+  const { cart, deleteItem, deleteAllItem } = useBooking();
   const { currentUser, genMomoUrl } = useAuth();
   const { turnOnLoader, turnOffLoader } = useLoader();
-  const [receivename, setReceivename] = useState("");
-  const [receiveaddress, setReceiveaddress] = useState("");
-  const [receivephone, setReceivephone] = useState("");
+  const [receivename, setReceivename] = useState(
+    localStorage.getItem("receivename")
+  );
+  const [receiveaddress, setReceiveaddress] = useState(
+    localStorage.getItem("receiveaddress")
+  );
+  const [receivephone, setReceivephone] = useState(
+    localStorage.getItem("receivephone")
+  );
   const [total, setTotal] = useState(0);
   const [receivenameRef, setReceivenameRef] = useState("");
   const [receiveaddressRef, setReceiveaddressRef] = useState("");
@@ -57,91 +63,137 @@ function PaymenScreen() {
       setInfo("block");
     }
   }, []);
+  useLayoutEffect(() => {
+    const search = new URLSearchParams(props.location.search);
+    const resultCode = search.get("resultCode");
+    // 1106 = huy
+    // 0 = thanh cong
+    const requestId = search.get("requestId");
+
+    if (resultCode == 0) {
+      turnOnLoader();
+      axios
+        .post(
+          "http://localhost:3000/api/auth/addOrderMomo",
+          {
+            requestId,
+            data: {
+              listFood: JSON.parse(localStorage.getItem("cart")),
+              receiveName: localStorage.getItem("receivename"),
+              receivePhone: localStorage.getItem("receivephone"),
+              receiveAddress: localStorage.getItem("receiveaddress"),
+            },
+          },
+          {
+            headers: {
+              token: localStorage.getItem("token"),
+            },
+          }
+        )
+        .then((res) => {
+          history.push("/");
+        })
+        .finally(() => turnOffLoader());
+    } else turnOffLoader();
+  }, []);
+  useEffect(() => {
+    getAllFood().then((res) => {
+      const { message, data } = res.data.food;
+      if (message === "success") setList(data);
+    });
+  }, []);
   const handlePayment = () => {
     if (!pay) setInfo("none");
     else setInfo("block");
     setPay(!pay);
   };
   const renderCart = () => {
-    // let cart2=[];
-    // for (let [key, value] of Object.entries(cart)) {
-    //     let obj= listItem.find(item => item.id == key);
-    //     cart2.push( <Receipt key={obj.id} type={obj.type}
-    //                         name={obj.name} number={value}
-    //                         price={obj.price} onDelete={() => deleteItem(key)}
-    //                         id={key}
-    //                         tatic={false}
-    //                         />)
-    //   }
-    // // setTotal(price);
-    // return cart2;
+    if (list.length === 0) return;
+    let cart2 = [];
+    cart.forEach((item) => {
+      let obj = list.find((i) => i.id === item.id);
+      cart2.push(
+        <Receipt
+          key={obj.id}
+          type={obj.type}
+          name={obj.food_name}
+          number={item.number}
+          price={obj.price}
+          onDelete={() => deleteItem(obj.id)}
+          id={obj.id}
+          tatic={false}
+        />
+      );
+    });
+    return cart2;
   };
-  // useEffect(() => {
-  //     let price=0;
-  //     for (let [key, value] of Object.entries(cart)) {
-  //         let obj= listItem.find(item => item.id == key);
-  //         price= price + obj.price * parseInt(value);
-  //         // console.log(price);
-  //       }
-  //       setTotal(price);
-  // },[cart])
+  useEffect(() => {
+    if (list.length === 0) return;
+    let price = 0;
+    cart.forEach((item) => {
+      let obj = list.find((i) => i.id === item.id);
+      price = price + parseInt(obj.price) * item.number;
+    });
+    setTotal(price);
+  }, [cart, list]);
+
+  useEffect(() => {
+    localStorage.setItem("receiveaddress", receiveaddress);
+  }, [receiveaddress]);
+  useEffect(() => {
+    localStorage.setItem("receivename", receivename);
+  }, [receivename]);
+  useEffect(() => {
+    localStorage.setItem("receivephone", receivephone);
+  }, [receivephone]);
 
   const cancelOrder = () => {
     setReceiveaddress("");
     setReceivename("");
     setReceivephone("");
-    // deleteAllItem();
+    deleteAllItem();
     history.push("/");
   };
   const confirmOrder = async () => {
-    // if(!currentUser ) history.push("/login");
-    // else
-    //     if(Object.keys(cart).length === 0) history.push("/order");
-    // else if(receivename ==="" || receiveaddress ==="" || receivephone ===""){
-    //     if(receivename ==="") setReceivenameRef("x");
-    //     if(receiveaddress ==="") setReceiveaddressRef("x");
-    //     if(receivephone ==="") setReceivephoneRef("x");
-    //     return ;
-    // }
-    // else {
-    //     turnOnLoader();
-    //     firestore.collection("History").add({
-    //         userId: currentUser.user.uid,
-    //         order: cart,
-    //         time: firebase.firestore.Timestamp.now(),
-    //         receivename,
-    //         receiveaddress,
-    //         receivephone
-    //     }).then(() =>{
-    //         turnOffLoader();
-    //         cancelOrder();
-    //     }).catch(err => console.log(err));
-    // }
+    if (receiveaddress && receivename && receivephone && cart.length !== 0) {
+      turnOnLoader();
+      axios
+        .post(
+          url.concat("/api/auth/addOrder"),
+          {
+            receiveName: receivename,
+            receivePhone: receivephone,
+            receiveAddress: receiveaddress,
+            listFood: cart,
+          },
+          {
+            headers: {
+              token: currentUser,
+            },
+          }
+        )
+        .then((res) => {
+          if (res.data.message !== "success") history.push("/login");
+          else {
+            history.push("/");
+            deleteAllItem();
+          }
+        })
+        .finally(() => turnOffLoader());
+    }
   };
-  useEffect(() => {
-    const url = localStorage.getItem("urlMomo");
-    axios
-      .get('https://test-payment.momo.vn/v2/gateway/pay?t=TU9NT1pJM1YyMDIxMTEwNHxNT01PWkkzVjIwMjExMTA0MTYzNjAxODIwNjcxOA==', {
-
-      })
-      .then((res) => {
-        if(`${res.data}`.includes('<p>Giao dịch đã hết hạn.</p>'))
-            console.log(true)
-      })
-      .catch((err) => {
-        console.log('fd');
-      });
-  },[]);
   const confirmOrderMomo = () => {
-    turnOnLoader();
-    genMomoUrl(100000)
-      .then((res) => {
-        if (res.data.message === "success") {
-          window.open(res.data.url);
-          localStorage.setItem("urlMomo", res.data.url);
-        }
-      })
-      .finally(() => turnOffLoader());
+    if (receiveaddress && receivename && receivephone && cart.length !== 0) {
+      turnOnLoader();
+      genMomoUrl(total)
+        .then((res) => {
+          if (res.data.message === "success") {
+            window.open(res.data.url);
+            localStorage.setItem("urlMomo", res.data.url);
+          }
+        })
+        .finally(() => turnOffLoader());
+    }
   };
   return (
     <motion.div
@@ -173,7 +225,9 @@ function PaymenScreen() {
             <InfoPair keyy={"Discount"} value={"0"} />
             <InfoPair
               keyy={"Sub total"}
-              value={`$${isNaN(total) ? "" : total.toFixed(2)}`}
+              value={`${
+                isNaN(total) ? "" : new Intl.NumberFormat().format(total)
+              }đ`}
             />
           </div>
         </div>
@@ -226,6 +280,7 @@ function PaymenScreen() {
                     ? styles.payment_input
                     : styles.payment_input_warning
                 }
+                value={receivename}
                 type="text"
                 placeholder="EX: Eimi Fudaka"
                 onChange={(e) => setReceivename(e.target.value)}
@@ -243,6 +298,7 @@ function PaymenScreen() {
                     ? styles.payment_input
                     : styles.payment_input_warning
                 }
+                value={receiveaddress}
                 type="text"
                 placeholder="EX: 1st, Ha Huy Tap, Ha Tinh"
                 onChange={(e) => setReceiveaddress(e.target.value)}
@@ -260,6 +316,7 @@ function PaymenScreen() {
                     ? styles.payment_input
                     : styles.payment_input_warning
                 }
+                value={receivephone}
                 type="text"
                 placeholder="EX: 12345678"
                 onBlur={() => {
@@ -293,6 +350,7 @@ function PaymenScreen() {
                     ? styles.payment_input
                     : styles.payment_input_warning
                 }
+                value={receivename}
                 type="text"
                 placeholder="EX: Eimi Fudaka"
                 onChange={(e) => setReceivename(e.target.value)}
@@ -310,6 +368,7 @@ function PaymenScreen() {
                     ? styles.payment_input
                     : styles.payment_input_warning
                 }
+                value={receiveaddress}
                 type="text"
                 placeholder="EX: 1st, Ha Huy Tap, Ha Tinh"
                 onChange={(e) => setReceiveaddress(e.target.value)}
@@ -327,6 +386,7 @@ function PaymenScreen() {
                     ? styles.payment_input
                     : styles.payment_input_warning
                 }
+                value={receivephone}
                 type="text"
                 placeholder="EX: 12345678"
                 onBlur={() => {

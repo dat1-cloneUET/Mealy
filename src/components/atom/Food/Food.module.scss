@@ -215,6 +215,7 @@
         display: none;
     }
     flex-wrap: wrap;    
+    align-content: flex-start
 }
 .singleComment div:first-child{
     display: flex;
@@ -231,7 +232,8 @@
 }
 .time {
     font-weight:lighter;
-    width: 130px;
+    // width: 130px;
+    font-size: 13px
 }
 .com {
     margin-top: 10px

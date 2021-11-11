@@ -13,7 +13,7 @@ function LoaderScreen() {
             justifyContent: "center",
             alignItems: 'center',
             opacity: 0.4,
-            zIndex: 100
+            zIndex: 10000
          }}>
             <div className={styles["lds-roller"]}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
         </div>

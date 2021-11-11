@@ -4,13 +4,16 @@ import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import { LoaderProvider } from "./components/context/LoaderProvider";
 import { AuthProvider } from "./components/context/AuthProvider";
+import { BookingProvider } from "./components/context/BookingProvider";
 ReactDOM.render(
   <Router>
-    <LoaderProvider>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </LoaderProvider>
+    <BookingProvider>
+      <LoaderProvider>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </LoaderProvider>
+    </BookingProvider>
   </Router>,
   document.getElementById("root")
 );
