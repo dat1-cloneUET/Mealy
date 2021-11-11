@@ -7,6 +7,7 @@ export function BookingProvider({ children }) {
   const [cart, setcart] = useState([]);
 
   const addItem = (id) => {
+    if(!cart) return;
     if (cart.filter((item) => item.id === id).length === 0){
       let temp = _.cloneDeep(cart);
       temp.push({ id, number: 1 });
@@ -26,6 +27,7 @@ export function BookingProvider({ children }) {
     }
   };
   const deleteItem = (id) => {
+    if(!cart) return;
     const temp = _.cloneDeep(cart).filter((item) => item.id !== id);
     setcart(temp);
   };
@@ -33,6 +35,7 @@ export function BookingProvider({ children }) {
     setcart([]);
   };
   const updateNumber = (id, num) => {
+    if(!cart) return;
     const temp = _.cloneDeep(cart);
     temp.forEach((item, index) => {
       if (item.id === id) {
