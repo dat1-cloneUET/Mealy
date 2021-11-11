@@ -53,8 +53,11 @@ export function BookingProvider({ children }) {
     deleteAllItem,
   };
   useEffect(() => {
-    if(cart.length !== 0)
+    if(cart){
+          if(cart.length !== 0)
     localStorage.setItem('cart', JSON.stringify(cart))
+    }
+
   }, [cart])
   useEffect(() => {
     setcart(_.cloneDeep(JSON.parse(localStorage.getItem('cart'))))
