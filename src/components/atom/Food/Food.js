@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Food.module.scss";
-// import { useBooking } from '../../context/BookingProvider';
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import HistoryButton from "../HistoryButton/HistoryButton";
