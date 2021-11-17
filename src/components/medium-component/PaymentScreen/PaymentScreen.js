@@ -27,13 +27,13 @@ function PaymenScreen(props) {
   const { currentUser, genMomoUrl } = useAuth();
   const { turnOnLoader, turnOffLoader } = useLoader();
   const [receivename, setReceivename] = useState(
-    localStorage.getItem("receivename")
+    localStorage.getItem("receivename") || ''
   );
   const [receiveaddress, setReceiveaddress] = useState(
-    localStorage.getItem("receiveaddress")
+    localStorage.getItem("receiveaddress") || ''
   );
   const [receivephone, setReceivephone] = useState(
-    localStorage.getItem("receivephone")
+    localStorage.getItem("receivephone") || ''
   );
   const [total, setTotal] = useState(0);
   const [receivenameRef, setReceivenameRef] = useState("");
@@ -74,7 +74,7 @@ function PaymenScreen(props) {
       turnOnLoader();
       axios
         .post(
-          "http://localhost:3000/api/auth/addOrderMomo",
+          url.concat("/api/auth/addOrderMomo"),
           {
             requestId,
             data: {
