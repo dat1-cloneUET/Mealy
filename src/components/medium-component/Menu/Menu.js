@@ -26,8 +26,9 @@ function Menu({ name, setname }) {
   }
   useEffect(() => {
     getUserInfo().then(res => {
-      if(res.data.message ==='success')
-      setIsLogin(res.data.data.username);
+      if(res.data.message ==='success'){
+        setIsLogin(res.data.data.username);
+      }  
     })
   },[currentUser])
   const getTotalNumber = () => cart?cart.reduce((pre, cur) => pre + cur.number, 0):0;

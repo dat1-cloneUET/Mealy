@@ -10,7 +10,7 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState();
+  const [currentUser, setCurrentUser] = useState(localStorage.getItem('token') || '');
 
   function signup(email, password, username = "fuck") {
     return axios.post(url.concat("/registerWithEmailAndPassword"), {
@@ -54,11 +54,6 @@ export function AuthProvider({ children }) {
   // function updatePassword(password) {
   //   return currentUser.updatePassword(password);
   // }
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    setCurrentUser(token);
-  }, [])
 
 
 

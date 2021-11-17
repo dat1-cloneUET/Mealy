@@ -31,6 +31,7 @@ export function BookingProvider({ children }) {
   };
   const deleteAllItem = () => {
     setcart([]);
+    localStorage.removeItem('cart')
   };
   const updateNumber = (id, num) => {
     const temp = _.cloneDeep(cart);
@@ -53,11 +54,7 @@ export function BookingProvider({ children }) {
     deleteAllItem,
   };
   useEffect(() => {
-    if(cart){
-          if(cart.length !== 0)
     localStorage.setItem('cart', JSON.stringify(cart))
-    }
-
   }, [cart])
 
   return (
