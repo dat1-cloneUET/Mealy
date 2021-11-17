@@ -1,3 +1,3 @@
-const api="http://167.172.85.52:3000";
+const api="https://trsmealy123.herokuapp.com";
 
 export default api;
